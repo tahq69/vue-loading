@@ -1,0 +1,5 @@
+*
+!dist/build.js
+!dist/build.js.map
+!package.json
+!README.md
