@@ -1,7 +1,8 @@
 <template>
   <div
       class="crip-loading"
-      :style="{width: progress, background: color}"
+      v-if="visible"
+      :style="{width: progressWidth, background: color}"
       :class="[`crip-loading--to-${direction}`]"
   ></div>
 </template>
@@ -31,6 +32,8 @@
         config => this.pushResponse(config),
         err => this.pushResponse(err)
       )
+
+      setInterval(this.recheck, 250)
     },
 
     computed: {
@@ -38,36 +41,58 @@
        * Calculate current progress of the loading.
        * @return {string}
        */
-      progress () {
+      progressWidth () {
         return `${this.width || 0}%`
       },
 
       width () {
-        return this.total / this.inProgress / 2 * 100
+        return 100 / this.total * ((this.completed + this.progress) / 2)
       }
     },
 
     data () {
       return {
+        lastChange: Date.now(),
         total: 0,
-        inProgress: 0
+        progress: 0,
+        completed: 0,
+        visible: true,
       }
     },
 
     methods: {
       pushRequest (params, time = Date.now()) {
         this.$emit('crip-request', time)
+        this.lastChange = time
         this.total++
-        this.inProgress++
+        this.progress++
         return params
       },
 
       pushResponse (params, time = Date.now()) {
+        this.lastChange = time
         this.$emit('crip-response', time)
-        this.inProgress--
-        this.total--
+        this.completed++
         return params
       },
+
+      recheck () {
+        if (this.canResetProgress()) {
+          this.visible = false
+          this.total = this.progress = this.completed = 0
+          setTimeout(() => this.visible = true, 100)
+        }
+      },
+
+      /**
+       * All request completed and from last change has passed one second.
+       * @return {boolean}
+       */
+      canResetProgress () {
+        return this.total > 0 &&
+          this.progress === this.completed &&
+          (Date.now() - this.lastChange) > 1000
+      }
     },
   }
 </script>
