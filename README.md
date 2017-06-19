@@ -14,9 +14,10 @@ Take a look to [demo page](http://rawgit.com/tahq69/vue-loading/master/index.htm
 ```javascript
 import Vue from 'vue'
 import CripLoading from 'crip-vue-loading'
+import axios from 'axios'
 
-// Install component in to Vue instance
-Vue.use(CripLoading)
+// Install component in to Vue instance and inject in to axios.
+Vue.use(CripLoading, {axios})
 ```
 
 ### Display loading bar
@@ -83,15 +84,15 @@ Vue.use(CripLoading)
 
 ```bash
 
+# Build assets
+> npm run build
+
 # Commit sources to git repository
 > git add -A
 > git commit -m "[build] v$VERSION"
 
 #update version number
 > npm version $VERSION --message "[release] v$VERSION"
-
-# Build assets
-> npm run build
 
 # publish
 > git push

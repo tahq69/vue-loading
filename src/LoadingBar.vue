@@ -148,12 +148,13 @@
   $transition: all .9s ease;
 
   .crip-loading {
-    transition: $transition;
-    position: fixed;
-    top: 0;
     background: rgba(88, 91, 169, 1);
     height: 3px;
     opacity: 1;
+    position: fixed;
+    top: 0;
+    transition: $transition;
+    z-index: 1001; // on top of the bootstrap fixed nav
 
     &--to-right {
       left: 0;
