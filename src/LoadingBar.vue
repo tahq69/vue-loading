@@ -22,6 +22,9 @@
       color: {type: String, default: () => `rgba(88, 91, 169, 1)`},
     },
 
+    /**
+     * Registers interceptors in to axios instance.
+     */
     created () {
       this.$cripLoading.axios.interceptors.request.use(
         config => this.pushRequest(config),
@@ -45,8 +48,37 @@
         return `${this.width || 0}%`
       },
 
+      /**
+       * Overall width of the progress bar.
+       * @return {number}
+       */
       width () {
-        return 100 / this.total * ((this.completed + this.progress) / 2)
+        return this.left + this.right
+      },
+
+      /**
+       * Portion of started progress.
+       * More requests are started, less progress of initial is set.
+       * @return {number}
+       */
+      left () {
+        if (this.total === 0) {
+          return 0
+        }
+
+        return 100 / (this.total * 2)
+      },
+
+      /**
+       * Portion of completed, where one completed takes same as all of started.
+       * @return {number}
+       */
+      right () {
+        if (this.left === 0) {
+          return 0
+        }
+
+        return ((100 - this.left) * this.completed) / this.total
       }
     },
 
@@ -61,21 +93,36 @@
     },
 
     methods: {
-      pushRequest (params, time = Date.now()) {
+      /**
+       * Add a request and increase total & progress
+       * @param {*} config
+       * @param {number} time
+       * @return {*}
+       */
+      pushRequest (config, time = Date.now()) {
         this.$emit('crip-request', time)
         this.lastChange = time
         this.total++
         this.progress++
-        return params
+        return config
       },
 
-      pushResponse (params, time = Date.now()) {
+      /**
+       * Add a response and increase completed requests count.
+       * @param {*} err
+       * @param {number} time
+       * @return {*}
+       */
+      pushResponse (err, time = Date.now()) {
         this.lastChange = time
         this.$emit('crip-response', time)
         this.completed++
-        return params
+        return err
       },
 
+      /**
+       * Check progress status and if it is outdated, reset it to 0.
+       */
       recheck () {
         if (this.canResetProgress()) {
           this.visible = false
@@ -108,11 +155,11 @@
     height: 3px;
     opacity: 1;
 
-    &--to-right, &--to-right .crip-progress {
+    &--to-right {
       left: 0;
     }
 
-    &--to-left, &--to-left .crip-progress {
+    &--to-left {
       right: 0;
     }
   }

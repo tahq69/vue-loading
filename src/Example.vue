@@ -1,21 +1,56 @@
 <template>
-  <div>
-    <crip-loading :direction="direction" :width="width"></crip-loading>
-    <br/>
+  <div class="container">
 
-    <button class="btn btn-default" @click="width = 30">30</button>
-    <button class="btn btn-default" @click="width = 50">50</button>
-    <button class="btn btn-default" @click="width = 70">70</button>
-    <button class="btn btn-default" @click="width = 100">100</button>
-    <br/>
+    <crip-loading
+        :direction="direction"
+        color="rgba(88, 91, 169, 1)"
+    ></crip-loading>
 
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
+        <h1>Crip Vue.js axios loading bar.</h1>
 
-    <button class="btn btn-default" @click="direction = 'left'">left</button>
-    <button class="btn btn-default" @click="direction = 'right'">right</button>
-    <br/>
+        <div class="form-group">
+          <button
+              class="btn btn-default"
+              @click="direction = 'left'"
+              :disabled="direction == 'left'"
+          >
+            Direction Left
+          </button>
 
-    <input type="number" class="form-control" v-model="timeout"/>
-    <button class="btn btn-primary" @click="request">Create request</button>
+          <button
+              class="btn btn-default"
+              @click="direction = 'right'"
+              :disabled="direction == 'right'"
+          >
+            Direction Right
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label for="timeout">Request timeout</label>
+          <input
+              type="number"
+              class="form-control"
+              v-model="timeout"
+              id="timeout"
+          />
+        </div>
+
+        <button class="btn btn-primary" @click="request">Create request</button>
+        <button class="btn btn-primary" @click="tripleRequest">
+          Create triple request
+        </button>
+      </div>
+    </div>
+
+    <small class="pull-right">
+      Thanks
+      <a href="http://www.fakeresponse.com" target="_blank">FakeResponse</a> and
+      <a href="http://www.crip.lv" target="_blank">CRIP</a>
+    </small>
+
   </div>
 </template>
 
@@ -23,11 +58,12 @@
   import axios from 'axios'
   export default {
     name: 'example',
+
     methods: {
-      async request () {
+      async request (e, timeout = 0) {
         try {
           let res = await axios.get(
-            `http://www.fakeresponse.com/api/?sleep=${this.timeout}`
+            `http://www.fakeresponse.com/api/?sleep=${timeout || this.timeout}`
           )
           console.log(res.data)
         } catch (err) {
@@ -37,13 +73,24 @@
             console.error(err.data)
           }
         }
+      },
+
+      /**
+       * Create parallel 3 requests to the server
+       */
+      tripleRequest () {
+        Promise.all([
+          this.request(),
+          this.request(null, this.timeout + 1),
+          this.request(null, this.timeout + 2)
+        ])
       }
     },
+
     data () {
       return {
-        width: 50,
         direction: 'right',
-        timeout: 2
+        timeout: 1
       }
     },
   }
