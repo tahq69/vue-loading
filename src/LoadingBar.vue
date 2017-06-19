@@ -154,7 +154,7 @@
     position: fixed;
     top: 0;
     transition: $transition;
-    z-index: 1001; // on top of the bootstrap fixed nav
+    z-index: 1101; // on top of the bootstrap elements
 
     &--to-right {
       left: 0;

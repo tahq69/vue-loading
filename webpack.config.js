@@ -6,6 +6,8 @@ let parts = version.split('.')
 let last = parts.splice(-1, 1)[0]
 version = parts.join('.') + '.' + (parseInt(last || 0) + 1)
 
+console.log(`Creating build of v${version}:`)
+
 module.exports = {
   entry: {
     build: './src/main.js',
