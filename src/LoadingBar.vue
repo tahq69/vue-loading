@@ -28,12 +28,12 @@
     created () {
       this.$cripLoading.axios.interceptors.request.use(
         config => this.pushRequest(config),
-        err => this.pushResponse(err)
+        err => this.pushResponse(err, true)
       )
 
       this.$cripLoading.axios.interceptors.response.use(
         config => this.pushResponse(config),
-        err => this.pushResponse(err)
+        err => this.pushResponse(err, true)
       )
 
       setInterval(this.recheck, 250)
@@ -109,15 +109,21 @@
 
       /**
        * Add a response and increase completed requests count.
-       * @param {*} err
-       * @param {number} time
+       * @param  {*} data
+       * @param  {Boolean} error
+       * @param  {number} time
        * @return {*}
        */
-      pushResponse (err, time = Date.now()) {
+      pushResponse (data, error = false, time = Date.now()) {
         this.lastChange = time
         this.$emit('crip-response', time)
         this.completed++
-        return err
+
+        if(error) {
+          throw data
+        }
+
+        return data
       },
 
       /**
