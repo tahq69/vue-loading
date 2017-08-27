@@ -119,8 +119,8 @@
         this.$emit('crip-response', time)
         this.completed++
 
-        if(error) {
-          throw data
+        if (error) {
+          throw data.response
         }
 
         return data
