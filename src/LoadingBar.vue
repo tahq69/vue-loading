@@ -120,7 +120,7 @@
         this.completed++
 
         if (error) {
-          throw data.response
+          return Promise.reject(data)
         }
 
         return data
