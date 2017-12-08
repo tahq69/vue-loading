@@ -1,13 +1,23 @@
 {
   "name": "crip-vue-loading",
-  "description": "Loading bar for Vue.js apps using axios",
-  "version": "1.0.5",
+  "description": "Loading bar for Vue.js apps using axios and vue-router",
+  "version": "1.1.5",
   "author": "Igors Krasjukovs <tahq69@gmail.com>",
   "private": false,
   "main": "dist/build.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "src",
+    "dist/*.js",
+    "types/*.d.ts"
+  ],
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tahq69/vue-loading.git"
   },
   "dependencies": {
     "axios": "^0.16.2",

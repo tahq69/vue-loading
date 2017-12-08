@@ -12,9 +12,9 @@ Take a look to [demo page](http://rawgit.com/tahq69/vue-loading/master/index.htm
 
 ### Setup
 ```javascript
-import Vue from 'vue'
-import CripLoading from 'crip-vue-loading'
-import axios from 'axios'
+import Vue from "vue"
+import CripLoading from "crip-vue-loading"
+import axios from "axios"
 
 // Install component in to Vue instance and inject in to axios.
 Vue.use(CripLoading, {axios})
@@ -70,31 +70,12 @@ Vue.use(CripLoading, {axios})
 ## Build Setup
 
 ```bash
-# install dependencies
-> npm install
-
-# serve with hot reload at localhost:8080
-> npm run dev
-
-# build for production with minification
-> npm run build
+# install dependencies and serve with hot reload at localhost:8080
+> npm i && npm run dev
 ```
 
 ## Release steps
 
-```bash
-
-# Build assets
-> npm run build
-
-# Commit sources to git repository
-> git add -A
-> git commit -m "[build] v$VERSION"
-
-#update version number
-> npm version $VERSION --message "[release] v$VERSION"
-
-# publish
-> git push
-> npm publish
+```cmd
+./release.bat %VERSION
 ```
