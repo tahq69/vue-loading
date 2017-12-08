@@ -97,7 +97,10 @@ module.exports = {
 
 if (process.env.NODE_ENV !== "test") {
   module.exports.externals = {
+    vue: "axios",
     vue: "Vue",
+    "vue-router": "VueRouter",
+    "crip-vue-notice": "CripVueNotice",
   }
 }
 

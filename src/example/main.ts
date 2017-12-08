@@ -1,11 +1,13 @@
-import Vue from 'vue'
-import axios from 'axios'
-import loading from './main'
-import App from './Example.vue'
+import axios from "axios"
+import Vue from "vue"
 
-Vue.use(loading, {axios})
+import loading from "./../main"
+import App from "./Example.vue"
 
-new Vue({
-  el: '#app',
-  render: h => h(App)
+Vue.use(loading, { axios })
+
+const app = new Vue({
+  render: h => h(App),
 })
+
+app.$mount(document.getElementById("app"))

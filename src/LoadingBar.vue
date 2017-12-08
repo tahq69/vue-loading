@@ -8,166 +8,169 @@
 </template>
 
 <script lang="ts">
-  export default {
-    props: {
-      /**
-       * The direction of the loading bar.
-       * @type {{type: (String), default: (function(): string)}}
-       */
-      direction: {type: String, default: () => 'right'},
-      /**
-       * The color of the loading bar.
-       * @type {{type: String, default: (function(): string)}}
-       */
-      color: {type: String, default: () => `rgba(88, 91, 169, 1)`},
+export default {
+  props: {
+    /**
+     * The color of the loading bar.
+     * @type {{type: String, default: (function(): string)}}
+     */
+    color: { type: String, default: () => `rgba(88, 91, 169, 1)` },
+
+    /**
+     * The direction of the loading bar.
+     * @type {{type: (String), default: (function(): string)}}
+     */
+    direction: { type: String, default: () => "right" },
+  },
+
+  /**
+   * Registers interceptors in to axios instance.
+   */
+  created() {
+    this.$loading.axios.interceptors.request.use(
+      config => this.pushRequest(config),
+      err => this.pushResponse(err, true),
+    )
+
+    this.$loading.axios.interceptors.response.use(
+      config => this.pushResponse(config),
+      err => this.pushResponse(err, true),
+    )
+
+    setInterval(this.recheck, 250)
+  },
+
+  computed: {
+    /**
+     * Calculate current progress of the loading.
+     * @return {string}
+     */
+    progressWidth() {
+      return `${this.width || 0}%`
     },
 
     /**
-     * Registers interceptors in to axios instance.
+     * Overall width of the progress bar.
+     * @return {number}
      */
-    created () {
-      this.$cripLoading.axios.interceptors.request.use(
-        config => this.pushRequest(config),
-        err => this.pushResponse(err, true)
+    width() {
+      return this.left + this.right
+    },
+
+    /**
+     * Portion of started progress.
+     * More requests are started, less progress of initial is set.
+     * @return {number}
+     */
+    left() {
+      if (this.total === 0) {
+        return 0
+      }
+
+      return 100 / (this.total * 2)
+    },
+
+    /**
+     * Portion of completed, where one completed takes same as all of started.
+     * @return {number}
+     */
+    right() {
+      if (this.left === 0) {
+        return 0
+      }
+
+      return (100 - this.left) * this.completed / this.total
+    },
+  },
+
+  data() {
+    return {
+      completed: 0,
+      lastChange: Date.now(),
+      progress: 0,
+      total: 0,
+      visible: true,
+    }
+  },
+
+  methods: {
+    /**
+     * Add a request and increase total & progress
+     * @param {*} config
+     * @param {number} time
+     * @return {*}
+     */
+    pushRequest(config, time = Date.now()) {
+      this.$emit("crip-request", time)
+      this.lastChange = time
+      this.total++
+      this.progress++
+      return config
+    },
+
+    /**
+     * Add a response and increase completed requests count.
+     * @param  {*} data
+     * @param  {Boolean} error
+     * @param  {number} time
+     * @return {*}
+     */
+    pushResponse(data, error = false, time = Date.now()) {
+      this.lastChange = time
+      this.$emit("crip-response", time)
+      this.completed++
+
+      if (error) {
+        return Promise.reject(data)
+      }
+
+      return data
+    },
+
+    /**
+     * Check progress status and if it is outdated, reset it to 0.
+     */
+    recheck() {
+      if (this.canResetProgress()) {
+        this.visible = false
+        this.total = this.progress = this.completed = 0
+        setTimeout(() => (this.visible = true), 100)
+      }
+    },
+
+    /**
+     * All request completed and from last change has passed one second.
+     * @return {boolean}
+     */
+    canResetProgress() {
+      return (
+        this.total > 0 &&
+        this.progress === this.completed &&
+        Date.now() - this.lastChange > 1000
       )
-
-      this.$cripLoading.axios.interceptors.response.use(
-        config => this.pushResponse(config),
-        err => this.pushResponse(err, true)
-      )
-
-      setInterval(this.recheck, 250)
     },
-
-    computed: {
-      /**
-       * Calculate current progress of the loading.
-       * @return {string}
-       */
-      progressWidth () {
-        return `${this.width || 0}%`
-      },
-
-      /**
-       * Overall width of the progress bar.
-       * @return {number}
-       */
-      width () {
-        return this.left + this.right
-      },
-
-      /**
-       * Portion of started progress.
-       * More requests are started, less progress of initial is set.
-       * @return {number}
-       */
-      left () {
-        if (this.total === 0) {
-          return 0
-        }
-
-        return 100 / (this.total * 2)
-      },
-
-      /**
-       * Portion of completed, where one completed takes same as all of started.
-       * @return {number}
-       */
-      right () {
-        if (this.left === 0) {
-          return 0
-        }
-
-        return ((100 - this.left) * this.completed) / this.total
-      }
-    },
-
-    data () {
-      return {
-        lastChange: Date.now(),
-        total: 0,
-        progress: 0,
-        completed: 0,
-        visible: true,
-      }
-    },
-
-    methods: {
-      /**
-       * Add a request and increase total & progress
-       * @param {*} config
-       * @param {number} time
-       * @return {*}
-       */
-      pushRequest (config, time = Date.now()) {
-        this.$emit('crip-request', time)
-        this.lastChange = time
-        this.total++
-        this.progress++
-        return config
-      },
-
-      /**
-       * Add a response and increase completed requests count.
-       * @param  {*} data
-       * @param  {Boolean} error
-       * @param  {number} time
-       * @return {*}
-       */
-      pushResponse (data, error = false, time = Date.now()) {
-        this.lastChange = time
-        this.$emit('crip-response', time)
-        this.completed++
-
-        if (error) {
-          return Promise.reject(data)
-        }
-
-        return data
-      },
-
-      /**
-       * Check progress status and if it is outdated, reset it to 0.
-       */
-      recheck () {
-        if (this.canResetProgress()) {
-          this.visible = false
-          this.total = this.progress = this.completed = 0
-          setTimeout(() => this.visible = true, 100)
-        }
-      },
-
-      /**
-       * All request completed and from last change has passed one second.
-       * @return {boolean}
-       */
-      canResetProgress () {
-        return this.total > 0 &&
-          this.progress === this.completed &&
-          (Date.now() - this.lastChange) > 1000
-      }
-    },
-  }
+  },
+}
 </script>
 
 <style lang="scss">
-  $transition: all .9s ease;
+$transition: all 0.9s ease;
 
-  .crip-loading {
-    background: rgba(88, 91, 169, 1);
-    height: 3px;
-    opacity: 1;
-    position: fixed;
-    top: 0;
-    transition: $transition;
-    z-index: 1101; // on top of the bootstrap elements
+.crip-loading {
+  background: rgba(88, 91, 169, 1);
+  height: 3px;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  transition: $transition;
+  z-index: 1101; // on top of the bootstrap elements
 
-    &--to-right {
-      left: 0;
-    }
-
-    &--to-left {
-      right: 0;
-    }
+  &--to-right {
+    left: 0;
   }
+
+  &--to-left {
+    right: 0;
+  }
+}
 </style>

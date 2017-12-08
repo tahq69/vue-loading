@@ -55,43 +55,45 @@
 </template>
 
 <script lang="ts">
-  import axios from 'axios'
-  export default {
-    name: 'example',
+import axios from "axios"
 
-    methods: {
-      async request (e, timeout = 0) {
-        try {
-          let res = await axios.get(
-            `http://www.fakeresponse.com/api/?sleep=${timeout || this.timeout}`
-          )
-          console.log(res.data)
-        } catch (err) {
-          if (err instanceof Error) {
-            console.error(err.message)
-          } else {
-            console.error(err.data)
-          }
+export default {
+  name: "example",
+
+  methods: {
+    async request(e, timeout = 0) {
+      try {
+        const res = await axios.get(
+          `http://www.fakeresponse.com/api/?sleep=${timeout || this.timeout}`,
+        )
+        console.log(res.data)
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error(err.message)
+        } else {
+          console.error(err.data)
         }
-      },
-
-      /**
-       * Create parallel 3 requests to the server
-       */
-      tripleRequest () {
-        Promise.all([
-          this.request(),
-          this.request(null, this.timeout + 1),
-          this.request(null, this.timeout + 2)
-        ])
       }
     },
 
-    data () {
-      return {
-        direction: 'right',
-        timeout: 1
-      }
+    /**
+     * Create parallel 3 requests to the server
+     * @returns {void}
+     */
+    tripleRequest() {
+      Promise.all([
+        this.request(),
+        this.request(null, this.timeout + 1),
+        this.request(null, this.timeout + 2),
+      ])
     },
-  }
+  },
+
+  data() {
+    return {
+      direction: "right",
+      timeout: 1,
+    }
+  },
+}
 </script>
