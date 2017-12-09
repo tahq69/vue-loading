@@ -1,11 +1,5 @@
 <template>
   <div class="container">
-
-    <crip-loading
-        :direction="direction"
-        color="rgba(88, 91, 169, 1)"
-    ></crip-loading>
-
     <div class="row">
       <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
         <h1>Crip Vue.js axios loading bar.</h1>
@@ -39,9 +33,10 @@
         </div>
 
         <button class="btn btn-primary" @click="request">Create request</button>
-        <button class="btn btn-primary" @click="tripleRequest">
-          Create triple request
-        </button>
+        <button class="btn btn-primary" @click="tripleRequest">Create triple request</button>
+        <button class="btn btn-default" @click="manualRequest">Manual request</button> 
+        <button class="btn btn-default" @click="manualResponse">Manual response</button> 
+        <button class="btn btn-danger" @click="fail">Fail</button> 
       </div>
     </div>
 
@@ -64,7 +59,7 @@ export default {
     async request(e, timeout = 0) {
       try {
         const res = await axios.get(
-          `http://www.fakeresponse.com/api/?sleep=${timeout || this.timeout}`,
+          `http://www.fakeresponse.com/api/?sleep=${timeout || this.timeout}`
         )
         console.log(res.data)
       } catch (err) {
@@ -74,6 +69,19 @@ export default {
           console.error(err.data)
         }
       }
+    },
+
+    manualRequest() {
+      const id = this.$loading.start()
+      console.log("manualRequest", { id })
+    },
+
+    manualResponse() {
+      this.$loading.complete()
+    },
+
+    fail() {
+      this.$loading.fail()
     },
 
     /**
