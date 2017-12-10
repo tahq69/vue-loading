@@ -4,7 +4,24 @@
       <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
         <h1>Crip Vue.js axios loading bar.</h1>
 
+        <router-view></router-view>
+        <br>
+
         <div class="form-group">
+          <router-link
+              to="/1"
+              class="btn btn-default"
+          >
+            Page 1
+          </router-link>
+
+          <router-link
+              to="/2"
+              class="btn btn-default"
+          >
+            Page 2
+          </router-link>
+
           <button
               class="btn btn-default"
               @click="direction = 'left'"

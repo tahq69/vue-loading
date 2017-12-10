@@ -2,12 +2,14 @@
   <div
       class="crip-loading"
       v-if="visible"
-      :style="{width: progress, background: color}"
+      :style="{width: progress, background: color, height}"
       :class="[`crip-loading--to-${direction}`]"
   ></div>
 </template>
 
 <script lang="ts">
+import { ICripLoadingOptions } from "./contracts"
+
 export default {
   name: "CripLoadingBar",
 
@@ -25,7 +27,8 @@ export default {
     return {
       color: "",
       direction: "",
-      visible: true,
+      height: "",
+      visible: false,
       width: "",
     }
   },
@@ -39,6 +42,13 @@ export default {
         this.visible = false
         setTimeout(() => (this.visible = true), 100)
       }
+    },
+
+    init(data: ICripLoadingOptions) {
+      this.color = data.color
+      this.height = data.height
+      this.direction = data.direction
+      this.visible = true
     },
   },
 
