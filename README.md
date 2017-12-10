@@ -67,6 +67,15 @@ Vue.use(CripLoading, {axios})
 </script>
 ```
 
+## TODO:
+
+- Create release script same as in [notice component](https://github.com/tahq69/vue-notice#release-steps)
+- Complete documentation:
+  - For notice usage;
+  - For verbose option in component;
+  - For other parameters in more friendly demo page;
+- Add algorithm with exponential progression instead of current linear;
+
 ## Build Setup
 
 ```bash
