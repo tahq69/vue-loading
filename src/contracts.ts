@@ -9,12 +9,12 @@ export interface ICripLoadingOptions {
   direction?: string
   failColor?: string
   height?: string
+  verbose?: boolean
 
   [key: string]: any
 }
 
 export interface IFailOptions {
-  axios?: boolean
   id?: string
   notice?: INoticeOptions
 }

@@ -1,13 +1,14 @@
 import axios from "axios"
 import Vue from "vue"
 
-import loading, { ICripLoadingOptions } from "./../main"
+import CripLoading, { ICripLoadingOptions } from "./../main"
 import App from "./Example.vue"
 
-Vue.use<ICripLoadingOptions>(loading, {
+Vue.use<ICripLoadingOptions>(CripLoading, {
   axios,
   color: "rgba(88, 91, 169, 1)",
   height: "3px",
+  verbose: true,
 })
 
 import router from "./router"

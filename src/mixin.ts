@@ -10,6 +10,8 @@ interface IMixinOptions {
   loading: Loading
 }
 
+let initial = true
+
 export default function init(settings: IMixinOptions) {
   if (!settings.options.applyOnRouter) return
 
@@ -24,7 +26,8 @@ export default function init(settings: IMixinOptions) {
       })
 
       router.afterEach((to, from) => {
-        settings.loading.complete()
+        settings.loading.complete(undefined, initial)
+        initial = false
       })
     },
   })

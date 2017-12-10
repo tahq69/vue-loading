@@ -8,19 +8,8 @@
         <br>
 
         <div class="form-group">
-          <router-link
-              to="/1"
-              class="btn btn-default"
-          >
-            Page 1
-          </router-link>
-
-          <router-link
-              to="/2"
-              class="btn btn-default"
-          >
-            Page 2
-          </router-link>
+          <router-link to="/1" class="btn btn-default">Page 1</router-link>
+          <router-link to="/2" class="btn btn-default">Page 2</router-link>
 
           <button
               class="btn btn-default"
@@ -51,9 +40,10 @@
 
         <button class="btn btn-primary" @click="request">Create request</button>
         <button class="btn btn-primary" @click="tripleRequest">Create triple request</button>
-        <button class="btn btn-default" @click="manualRequest">Manual request</button> 
-        <button class="btn btn-default" @click="manualResponse">Manual response</button> 
-        <button class="btn btn-danger" @click="fail">Fail</button> 
+        <button class="btn btn-default" @click="manualRequest">Manual request</button>
+        <button class="btn btn-default" @click="manualResponse">Manual response</button>
+        <button class="btn btn-danger" @click="fail">Fail</button>
+        <button class="btn btn-danger" @click="failNotice">Fail with notification</button>
       </div>
     </div>
 
@@ -99,6 +89,10 @@ export default {
 
     fail() {
       this.$loading.fail()
+    },
+
+    failNotice() {
+      this.$loading.fail({ notice: { title: "Request failed notification" } })
     },
 
     /**

@@ -12,3 +12,9 @@ export function progress(total: number, completed: number) {
 
   return left + right
 }
+
+export function log(type: "log" | "debug" | "warn" | "error", ...args) {
+  if (window && (window as any).__cripVerbose) {
+    console[type].apply(console, ["[crip-vue-loading]", ...args])
+  }
+}

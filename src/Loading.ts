@@ -2,10 +2,11 @@ import Vue from "vue"
 import Router from "vue-router"
 
 import { ICripLoadingOptions, IFailOptions, INoticeOptions } from "./contracts"
-import { progress, uuidv4 } from "./help"
+import { log, progress, uuidv4 } from "./help"
 import LoadingBar from "./LoadingBar.vue"
 
 let loadingBar = null
+let private_vue = null
 
 export default class Loading {
   private completed = 0
@@ -18,11 +19,12 @@ export default class Loading {
   private requests: string[] = []
 
   constructor(vue: typeof Vue, options?: ICripLoadingOptions) {
+    private_vue = vue
     this.options = options
     this.intercept(this.options.axios)
     this.router = this.options.router
 
-    const instance = new Vue({ render: h => h(LoadingBar) }).$mount()
+    const instance = new vue({ render: h => h(LoadingBar) }).$mount()
     document.body.appendChild(instance.$el)
     loadingBar = instance.$children[0]
     loadingBar.init(this.options)
@@ -44,7 +46,9 @@ export default class Loading {
     return uuid
   }
 
-  public complete(id?: string): void {
+  public complete(id?: string, initial?: boolean): void {
+    if (initial) return
+
     if (!id) {
       this.requests.shift()
       this.pushResponse(-1)
@@ -60,9 +64,25 @@ export default class Loading {
     throw Error(`Crip loading element ${id} not found to complete.`)
   }
 
-  public fail(x?: IFailOptions): void {
-    if (!x || !x.axios) this.complete(x ? x.id : undefined)
-    loadingBar.color = this.options.failColor
+  public fail(x?: IFailOptions, axios?: boolean): void {
+    if (this.total !== 0) {
+      if (!axios) this.complete(x ? x.id : undefined)
+      loadingBar.color = this.options.failColor
+    }
+
+    // Add crip notification if it is possible.
+    const notice = private_vue.$notice || private_vue.notice
+    if (notice && x && x.notice) {
+      notice.error(x.notice)
+    }
+
+    if (!notice && x && x.notice) {
+      log(
+        "warn",
+        "Notifications available only when installed vue-notice: " +
+          "https://github.com/tahq69/vue-notice#install"
+      )
+    }
   }
 
   public canResetProgress() {
@@ -108,10 +128,20 @@ export default class Loading {
     this.lastChange = time
     this.completed++
 
+    // Ensure we do not overfit when to much responses received.
+    if (this.completed > this.total) {
+      log("warn", "Response count exceeds maximum count", {
+        requests: this.total,
+        responses: this.completed,
+      })
+
+      this.completed = this.total
+    }
+
     loadingBar.width = this.width
 
     if (error) {
-      this.fail({ axios: true })
+      this.fail(undefined, true)
       return Promise.reject(data)
     }
 
