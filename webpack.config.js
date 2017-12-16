@@ -8,20 +8,22 @@ version = parts.join(".") + "." + (parseInt(last || 0) + 1)
 
 console.log(`Creating build of v${version}:`)
 
+let resolve = relativePath => path.resolve(__dirname, relativePath)
+
 module.exports = {
   entry: {
     build: "./src/main.ts",
     example: "./src/example/main.ts",
   },
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: resolve("./dist"),
     publicPath: "/dist/",
     filename: "[name].js",
   },
   resolve: {
     extensions: [".ts", ".js", ".vue", ".json"],
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": resolve("./src"),
       vue$: "vue/dist/vue.esm.js",
     },
   },
@@ -40,7 +42,7 @@ module.exports = {
         test: /\.ts$/,
         exclude: /node_modules|vue\/src|vendor\/*/,
         loader: "ts-loader",
-        include: [path.resolve(__dirname, "./src"), path.resolve(__dirname, "./examples")],
+        include: resolve("./src"),
         options: {
           appendTsSuffixTo: [/\.vue$/],
         },
@@ -55,6 +57,10 @@ module.exports = {
             esModule: true,
           },
         },
+      },
+      {
+        test: /\.scss$/,
+        use: [{ loader: "style-loader" }, { loader: "css-loader" }, { loader: "sass-loader" }],
       },
       {
         test: /\.ts$/,

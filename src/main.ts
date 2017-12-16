@@ -1,18 +1,22 @@
 import Vue from "vue"
 import Router from "vue-router"
 
+import "./assets/styles.scss"
 import { CripLoadingOptions, INoticeOptions, Options } from "./contracts"
-import { log } from "./help"
+import { log, setVerbose } from "./help"
 import Loading from "./Loading"
 import mixin from "./mixin"
 
 let installed = false
+let privateVue: any
 
 export default function install(vue: typeof Vue, options?: CripLoadingOptions) {
-  if (installed) return
+  console.log({ vue, options })
+  if (installed && privateVue === vue) return
   if (!options) throw new Error("Options with axios instance is required")
 
   installed = true
+  privateVue = vue
 
   const defaults: Options = {
     applyOnRouter: true,
@@ -27,8 +31,7 @@ export default function install(vue: typeof Vue, options?: CripLoadingOptions) {
   const settings = Object.assign({}, defaults, options)
 
   if (settings.verbose) {
-    // tslint:disable-next-line:whitespace
-    ;(window as any).__cripVerbose = true
+    setVerbose()
   }
 
   log("debug", "install", { options, settings })
@@ -42,11 +45,3 @@ export default function install(vue: typeof Vue, options?: CripLoadingOptions) {
 }
 
 export { CripLoadingOptions } from "./contracts"
-
-// Install component if is in browser and Vue instance is already available.
-// This is useful for non bundle usage - if developer adds this packages bundle
-// as script tag in markup.
-if (typeof window !== "undefined" && (window as any).Vue && (window as any).axios) {
-  // tslint:disable-next-line:whitespace
-  ;(window as any).Vue.use(install, { axios: (window as any).axios })
-}

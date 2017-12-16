@@ -25,7 +25,6 @@
     "vue-property-decorator": "^6.0.0"
   },
   "devDependencies": {
-    "vue": "^2.5.9",
     "axios": "^0.16.2",
     "crip-vue-notice": "^1.0.6",
     "cross-env": "^3.0.0",
@@ -40,9 +39,10 @@
     "tslint-loader": "^3.5.3",
     "typescript": "^2.6.2",
     "url-loader": "^0.5.9",
+    "vue": "^2.5.11",
     "vue-loader": "^12.2.2",
     "vue-router": "^3.0.1",
-    "vue-template-compiler": "^2.5.9",
+    "vue-template-compiler": "^2.5.11",
     "webpack": "^2.7.0",
     "webpack-dev-server": "^2.9.7"
   }

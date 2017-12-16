@@ -1,8 +1,8 @@
 import Vue from "vue"
 import Router from "vue-router"
 
+import LoadingBar from "./components/LoadingBar"
 import { log, progress, uuidv4 } from "./help"
-import LoadingBar from "./LoadingBar.vue"
 
 import {
   AxiosInstance,
@@ -156,10 +156,11 @@ export default class Loading {
   }
 
   private createInstance(vue: typeof Vue) {
-    const instance = new vue({ render: h => h(LoadingBar) }).$mount()
+    const instance = LoadingBar(vue).$mount()
     document.body.appendChild(instance.$el)
-    loadingBar = instance.$children[0] as LoadingBarVue
-    loadingBar.init(this.options)
+    console.log(this.options)
+    instance.init(this.options)
+    loadingBar = instance
   }
 
   private notice(notice?: INoticeOptions) {
