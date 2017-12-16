@@ -15,8 +15,8 @@ export default function install(vue: typeof Vue, options?: CripLoadingOptions) {
   installed = true
 
   const defaults: Options = {
-    axios: options.axios,
     applyOnRouter: true,
+    axios: options.axios,
     color: "#204d74",
     direction: "right",
     failColor: "#ac2925",
