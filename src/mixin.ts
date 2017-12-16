@@ -6,8 +6,6 @@ import { uuidv4 } from "./help"
 
 type Next = (to?: RawLocation | false | ((vm: Vue) => any) | void) => void
 
-let initial = true
-
 export default function init(settings: MixinOptions) {
   if (!settings.options.applyOnRouter) return
 
@@ -21,11 +19,6 @@ export default function init(settings: MixinOptions) {
       })
 
       this.$options.router.afterEach((to: Route, from: Route) => {
-        if (initial) {
-          initial = false
-          return
-        }
-
         settings.loading.complete()
       })
     },

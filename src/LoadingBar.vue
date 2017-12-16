@@ -10,7 +10,7 @@
 <script lang="ts">
 import Vue from "vue"
 
-import { Options } from "./contracts"
+import { CripLoadingOptions, Options } from "./contracts"
 
 export default Vue.extend({
   name: "CripLoadingBar",
@@ -48,9 +48,15 @@ export default Vue.extend({
 
     init(data: Options) {
       this.color = data.color
-      this.height = data.height
       this.direction = data.direction
+      this.height = data.height
       this.visible = true
+    },
+
+    configure(options: CripLoadingOptions) {
+      if (options.color) this.color = options.color
+      if (options.direction) this.direction = options.direction
+      if (options.height) this.height = options.height
     },
   },
 

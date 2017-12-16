@@ -8,6 +8,7 @@ import {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
+  ConfigureOptions,
   CripLoadingOptions,
   FailOptions,
   INotice,
@@ -100,6 +101,11 @@ export default class Loading {
     return result
   }
 
+  public configure(options: ConfigureOptions) {
+    if (loadingBar) loadingBar.configure(options)
+    if (options.failColor) this.options.failColor = options.failColor
+  }
+
   private intercept(axios?: AxiosInstance) {
     if (!axios) return
 
@@ -156,7 +162,8 @@ export default class Loading {
 
   private notice(notice?: INoticeOptions) {
     if (!private_vue || !notice) return
-    const noticeComponent = (private_vue as any).$notice || ((private_vue as any).notice as INotice)
-    if (!noticeComponent) return
+    if (!private_vue.notice) return
+
+    private_vue.notice.error(notice)
   }
 }

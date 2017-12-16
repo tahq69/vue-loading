@@ -6,14 +6,17 @@ import Router from "vue-router"
 export { INotice, INoticeOptions } from "crip-vue-notice"
 export { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface CripLoadingOptions {
-  axios: AxiosInstance
-
-  applyOnRouter?: boolean
+export interface ConfigureOptions {
   color?: string
   direction?: string
   failColor?: string
   height?: string
+}
+
+export interface CripLoadingOptions extends ConfigureOptions {
+  axios: AxiosInstance
+
+  applyOnRouter?: boolean
   verbose?: boolean
 }
 
@@ -41,9 +44,11 @@ export interface LoadingBarComponent {
   width: string
 
   init: (data: Options) => void
+  configure: (data: ConfigureOptions) => void
 }
 
 export interface ILoading {
+  configure(options: ConfigureOptions): void
   start(id?: string): string
   complete(id?: string, initial?: boolean): void
   fail(options?: { id?: string; notice?: INoticeOptions }): void

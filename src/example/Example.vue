@@ -108,11 +108,13 @@ export default Vue.extend({
      * @returns {void}
      */
     tripleRequest() {
-      Promise.all([
-        this.request(),
-        this.request(this.timeout + 1),
-        this.request(this.timeout + 2),
-      ])
+      Promise.all([this.request(), this.request(this.timeout + 1), this.request(this.timeout + 2)])
+    },
+  },
+
+  watch: {
+    direction(direction) {
+      this.$loading.configure({ direction })
     },
   },
 })
