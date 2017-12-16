@@ -42,3 +42,11 @@ export default function install(vue: typeof Vue, options?: CripLoadingOptions) {
 }
 
 export { CripLoadingOptions } from "./contracts"
+
+// Install component if is in browser and Vue instance is already available.
+// This is useful for non bundle usage - if developer adds this packages bundle
+// as script tag in markup.
+if (typeof window !== "undefined" && (window as any).Vue && (window as any).axios) {
+  // tslint:disable-next-line:whitespace
+  ;(window as any).Vue.use(install, { axios: (window as any).axios })
+}

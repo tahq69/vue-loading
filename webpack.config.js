@@ -40,10 +40,7 @@ module.exports = {
         test: /\.ts$/,
         exclude: /node_modules|vue\/src|vendor\/*/,
         loader: "ts-loader",
-        include: [
-          path.resolve(__dirname, "./src"),
-          path.resolve(__dirname, "./examples"),
-        ],
+        include: [path.resolve(__dirname, "./src"), path.resolve(__dirname, "./examples")],
         options: {
           appendTsSuffixTo: [/\.vue$/],
         },
@@ -58,6 +55,11 @@ module.exports = {
             esModule: true,
           },
         },
+      },
+      {
+        test: /\.ts$/,
+        loader: "string-replace-loader",
+        query: { search: "__VERSION__", replace: version },
       },
     ],
   },
@@ -79,9 +81,7 @@ module.exports = {
       hide_modules: true,
     }),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(
-        process.env.NODE_ENV || "development"
-      ),
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development"),
     }),
     new webpack.BannerPlugin({
       banner: `/*!

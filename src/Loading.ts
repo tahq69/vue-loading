@@ -24,6 +24,8 @@ let loadingBar: LoadingBarVue | null = null
 let private_vue: typeof Vue | null = null
 
 export default class Loading {
+  public version = "__VERSION__"
+
   private completed = 0
   private total = 0
 

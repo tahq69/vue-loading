@@ -26,11 +26,6 @@ Vue.use(CripLoading, {axios})
 <template>
   <div class="container">
 
-    <crip-loading
-        :direction="direction"
-        color="rgba(88, 91, 169, 1)"
-    ></crip-loading>
-
     <div class="row">
       <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
         <button class="btn btn-primary" @click="save($event, 2)">Save</button>
@@ -47,21 +42,13 @@ Vue.use(CripLoading, {axios})
     methods: {
       async save (e, timeout = 0) {
         try {
-          // simply call axios to save or request data and loading bar will 
-          // show up while response is not received from server. 
-          await axios.get(
-            `http://www.fakeresponse.com/api/?sleep=${timeout}`
-          )
+          // simply call axios to save or request data and loading bar will
+          // show up while response is not received from server.
+          await axios.get(`http://www.fakeresponse.com/api/?sleep=${timeout}`)
         } catch (err) {
           console.error(err)
         }
       },
-    },
-    
-    data () {
-      return {
-        direction: 'right',
-      }
     },
   }
 </script>
@@ -69,7 +56,6 @@ Vue.use(CripLoading, {axios})
 
 ## TODO:
 
-- Create release script same as in [notice component](https://github.com/tahq69/vue-notice#release-steps)
 - Complete documentation:
   - For notice usage;
   - For verbose option in component;
@@ -85,6 +71,6 @@ Vue.use(CripLoading, {axios})
 
 ## Release steps
 
-```cmd
-./release.bat %VERSION
+```bash
+> npm run release
 ```
