@@ -2,7 +2,7 @@ import Vue from "vue"
 import Router from "vue-router"
 import { AxiosInstance } from "axios"
 
-export interface PluginOption {
+export interface PluginOptions {
   axios: AxiosInstance
 
   applyOnRouter?: boolean
@@ -13,4 +13,4 @@ export interface PluginOption {
   verbose?: boolean
 }
 
-export const Plugin: (vue: typeof Vue, options?: PluginOption) => void
+export const Plugin: (vue: typeof Vue, options?: PluginOptions) => void
