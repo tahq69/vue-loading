@@ -1,4 +1,5 @@
-import Loading from "./loading"
+import Vue from "vue"
+import Loading from "./Loading"
 
 declare module "vue/types/vue" {
   interface Vue {

@@ -1,3 +1,5 @@
+export type LogType = "log" | "debug" | "warn" | "error"
+
 export function uuidv4() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
     const r = (Math.random() * 16) | 0
@@ -13,7 +15,7 @@ export function progress(total: number, completed: number) {
   return left + right
 }
 
-export function log(type: "log" | "debug" | "warn" | "error", ...args) {
+export function log(type: LogType, ...args: any[]) {
   if (window && (window as any).__cripVerbose) {
     console[type].apply(console, ["[crip-vue-loading]", ...args])
   }

@@ -1,10 +1,10 @@
 import axios from "axios"
 import Vue from "vue"
 
-import CripLoading, { ICripLoadingOptions } from "./../main"
+import CripLoading, { CripLoadingOptions } from "./../main"
 import App from "./Example.vue"
 
-Vue.use<ICripLoadingOptions>(CripLoading, {
+Vue.use<CripLoadingOptions>(CripLoading, {
   axios,
   color: "rgba(88, 91, 169, 1)",
   height: "3px",
@@ -18,4 +18,4 @@ const app = new Vue({
   render: h => h(App),
 })
 
-app.$mount(document.getElementById("app"))
+app.$mount(document.getElementById("app") || undefined)

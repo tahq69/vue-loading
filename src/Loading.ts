@@ -1,33 +1,41 @@
 import Vue from "vue"
 import Router from "vue-router"
 
-import { ICripLoadingOptions, IFailOptions, INoticeOptions } from "./contracts"
 import { log, progress, uuidv4 } from "./help"
 import LoadingBar from "./LoadingBar.vue"
 
-let loadingBar = null
-let private_vue = null
+import {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  CripLoadingOptions,
+  FailOptions,
+  INotice,
+  INoticeOptions,
+  LoadingBarComponent,
+  Options,
+} from "./contracts"
+
+type Response<T> = T | Promise<T>
+type LoadingBarVue = LoadingBarComponent & Vue
+
+let loadingBar: LoadingBarVue | null = null
+let private_vue: typeof Vue | null = null
 
 export default class Loading {
   private completed = 0
   private total = 0
 
   private lastChange = Date.now()
-  private options: ICripLoadingOptions
+  private options: Options
   private resetTimeout = 1000
-  private router?: Router
   private requests: string[] = []
 
-  constructor(vue: typeof Vue, options?: ICripLoadingOptions) {
+  constructor(vue: typeof Vue, options: Options) {
     private_vue = vue
     this.options = options
     this.intercept(this.options.axios)
-    this.router = this.options.router
-
-    const instance = new vue({ render: h => h(LoadingBar) }).$mount()
-    document.body.appendChild(instance.$el)
-    loadingBar = instance.$children[0]
-    loadingBar.init(this.options)
+    this.createInstance(vue)
   }
 
   /**
@@ -46,9 +54,7 @@ export default class Loading {
     return uuid
   }
 
-  public complete(id?: string, initial?: boolean): void {
-    if (initial) return
-
+  public complete(id?: string): void {
     if (!id) {
       this.requests.shift()
       this.pushResponse(-1)
@@ -64,25 +70,16 @@ export default class Loading {
     throw Error(`Crip loading element ${id} not found to complete.`)
   }
 
-  public fail(x?: IFailOptions, axios?: boolean): void {
+  public fail(options?: FailOptions, axios?: boolean): void {
     if (this.total !== 0) {
-      if (!axios) this.complete(x ? x.id : undefined)
-      loadingBar.color = this.options.failColor
+      if (!axios) this.complete(options ? options.id : undefined)
+      if (loadingBar) loadingBar.color = this.options.failColor
     }
+
+    if (!options) return
 
     // Add crip notification if it is possible.
-    const notice = private_vue.$notice || private_vue.notice
-    if (notice && x && x.notice) {
-      notice.error(x.notice)
-    }
-
-    if (!notice && x && x.notice) {
-      log(
-        "warn",
-        "Notifications available only when installed vue-notice: " +
-          "https://github.com/tahq69/vue-notice#install"
-      )
-    }
+    this.notice(options.notice)
   }
 
   public canResetProgress() {
@@ -94,14 +91,16 @@ export default class Loading {
     if (result) {
       this.requests = []
       this.total = this.completed = 0
-      loadingBar.width = 0
-      loadingBar.color = this.options.color
+      if (loadingBar) {
+        loadingBar.width = "0"
+        loadingBar.color = this.options.color
+      }
     }
 
     return result
   }
 
-  private intercept(axios?) {
+  private intercept(axios?: AxiosInstance) {
     if (!axios) return
 
     axios.interceptors.request.use(
@@ -115,16 +114,16 @@ export default class Loading {
     )
   }
 
-  private pushRequest(config, time = Date.now()) {
+  private pushRequest<T>(config: T, time = Date.now()): T {
     this.lastChange = time
     this.total++
 
-    loadingBar.width = this.width
+    if (loadingBar) loadingBar.width = this.width.toString()
 
     return config
   }
 
-  private pushResponse(data, error = false, time = Date.now()) {
+  private pushResponse<T>(data: T, error = false, time = Date.now()): Response<T> {
     this.lastChange = time
     this.completed++
 
@@ -138,7 +137,7 @@ export default class Loading {
       this.completed = this.total
     }
 
-    loadingBar.width = this.width
+    if (loadingBar) loadingBar.width = this.width.toString()
 
     if (error) {
       this.fail(undefined, true)
@@ -146,5 +145,18 @@ export default class Loading {
     }
 
     return data
+  }
+
+  private createInstance(vue: typeof Vue) {
+    const instance = new vue({ render: h => h(LoadingBar) }).$mount()
+    document.body.appendChild(instance.$el)
+    loadingBar = instance.$children[0] as LoadingBarVue
+    loadingBar.init(this.options)
+  }
+
+  private notice(notice?: INoticeOptions) {
+    if (!private_vue || !notice) return
+    const noticeComponent = (private_vue as any).$notice || ((private_vue as any).notice as INotice)
+    if (!noticeComponent) return
   }
 }

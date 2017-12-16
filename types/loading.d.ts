@@ -1,7 +1,7 @@
 import { INoticeOptions } from "crip-vue-notice"
 
-export default interface ILoading {
+export default interface Loading {
   start(id?: string): string
   complete(id?: string): void
-  fail(notice?: INoticeOptions): void
+  fail(options?: { id?: string; notice?: INoticeOptions }): void
 }

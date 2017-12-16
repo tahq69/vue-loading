@@ -12,17 +12,17 @@
           <router-link to="/2" class="btn btn-default">Page 2</router-link>
 
           <button
-              class="btn btn-default"
-              @click="direction = 'left'"
-              :disabled="direction == 'left'"
+            class="btn btn-default"
+            @click="direction = 'left'"
+            :disabled="direction == 'left'"
           >
             Direction Left
           </button>
 
           <button
-              class="btn btn-default"
-              @click="direction = 'right'"
-              :disabled="direction == 'right'"
+            class="btn btn-default"
+            @click="direction = 'right'"
+            :disabled="direction == 'right'"
           >
             Direction Right
           </button>
@@ -31,10 +31,10 @@
         <div class="form-group">
           <label for="timeout">Request timeout</label>
           <input
-              type="number"
-              class="form-control"
-              v-model="timeout"
-              id="timeout"
+            type="number"
+            class="form-control"
+            v-model="timeout"
+            id="timeout"
           />
         </div>
 
@@ -58,12 +58,20 @@
 
 <script lang="ts">
 import axios from "axios"
+import Vue from "vue"
 
-export default {
+export default Vue.extend({
   name: "example",
 
+  data() {
+    return {
+      direction: "right",
+      timeout: 1,
+    }
+  },
+
   methods: {
-    async request(e, timeout = 0) {
+    async request(timeout = 0) {
       try {
         const res = await axios.get(
           `http://www.fakeresponse.com/api/?sleep=${timeout || this.timeout}`
@@ -102,17 +110,10 @@ export default {
     tripleRequest() {
       Promise.all([
         this.request(),
-        this.request(null, this.timeout + 1),
-        this.request(null, this.timeout + 2),
+        this.request(this.timeout + 1),
+        this.request(this.timeout + 2),
       ])
     },
   },
-
-  data() {
-    return {
-      direction: "right",
-      timeout: 1,
-    }
-  },
-}
+})
 </script>

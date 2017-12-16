@@ -1,16 +1,18 @@
 <template>
   <div
-      class="crip-loading"
-      v-if="visible"
-      :style="{width: progress, background: color, height}"
-      :class="[`crip-loading--to-${direction}`]"
+    class="crip-loading"
+    v-if="visible"
+    :style="{width: progress, background: color, height}"
+    :class="[`crip-loading--to-${direction}`]"
   ></div>
 </template>
 
 <script lang="ts">
-import { ICripLoadingOptions } from "./contracts"
+import Vue from "vue"
 
-export default {
+import { Options } from "./contracts"
+
+export default Vue.extend({
   name: "CripLoadingBar",
 
   computed: {
@@ -18,7 +20,7 @@ export default {
      * Calculate current progress of the loading.
      * @return {string}
      */
-    progress() {
+    progress(): string {
       return `${this.width || 0}%`
     },
   },
@@ -44,7 +46,7 @@ export default {
       }
     },
 
-    init(data: ICripLoadingOptions) {
+    init(data: Options) {
       this.color = data.color
       this.height = data.height
       this.direction = data.direction
@@ -58,7 +60,7 @@ export default {
   created() {
     setInterval(this.recheck, 250)
   },
-}
+})
 </script>
 
 <style lang="scss">

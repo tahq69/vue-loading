@@ -1,33 +1,32 @@
 import Vue from "vue"
+import { RawLocation, Route } from "vue-router"
 
-import { ICripLoadingOptions } from "./contracts"
+import { MixinOptions } from "./contracts"
 import { uuidv4 } from "./help"
-import Loading from "./Loading"
 
-interface IMixinOptions {
-  vue: typeof Vue
-  options: ICripLoadingOptions
-  loading: Loading
-}
+type Next = (to?: RawLocation | false | ((vm: Vue) => any) | void) => void
 
 let initial = true
 
-export default function init(settings: IMixinOptions) {
+export default function init(settings: MixinOptions) {
   if (!settings.options.applyOnRouter) return
 
   settings.vue.mixin({
     beforeCreate() {
-      const router = settings.options.router || this.$options.router
-      if (!router) return
+      if (!this.$options.router) return
 
-      router.beforeEach((to, from, next) => {
+      this.$options.router.beforeEach((to: Route, from: Route, next: Next) => {
         settings.loading.start(uuidv4())
         next()
       })
 
-      router.afterEach((to, from) => {
-        settings.loading.complete(undefined, initial)
-        initial = false
+      this.$options.router.afterEach((to: Route, from: Route) => {
+        if (initial) {
+          initial = false
+          return
+        }
+
+        settings.loading.complete()
       })
     },
   })
