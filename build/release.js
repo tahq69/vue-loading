@@ -7,10 +7,14 @@ version = parts.join(".") + "." + (parseInt(last || 0) + 1)
 
 console.log(`Build of v${version} started.`)
 
-let ls = spawn("cmd.exe", ["/c", `release.bat ${version}`])
+let ls = spawn("cmd.exe", ["/c", `\.\\build\\release.bat ${version}`])
 
 ls.stdout.on("data", data => {
   console.log(data.toString())
+})
+
+ls.stderr.on("data", function(data) {
+  console.warn(data.toString())
 })
 
 ls.on("exit", code => {
