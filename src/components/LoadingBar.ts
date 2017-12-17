@@ -37,10 +37,16 @@ export default function(vue: typeof Vue) {
     data() {
       return {
         color: "",
-        direction: "",
+        direction: "right",
         height: "",
         visible: false,
         width: "",
+      } as {
+        color: string
+        direction: "right" | "left"
+        height: string
+        width: string
+        visible: boolean
       }
     },
 

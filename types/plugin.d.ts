@@ -7,7 +7,7 @@ export interface PluginOptions {
 
   applyOnRouter?: boolean
   color?: string
-  direction?: string
+  direction?: "left" | "right"
   failColor?: string
   height?: string
   verbose?: boolean

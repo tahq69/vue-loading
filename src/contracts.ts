@@ -8,7 +8,7 @@ export { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios"
 
 export interface ConfigureOptions {
   color?: string
-  direction?: string
+  direction?: "left" | "right"
   failColor?: string
   height?: string
 }
@@ -25,7 +25,7 @@ export interface Options {
 
   applyOnRouter: boolean
   color: string
-  direction: string
+  direction: "left" | "right"
   failColor: string
   height: string
   verbose: boolean
@@ -38,7 +38,7 @@ export interface FailOptions {
 
 export interface LoadingBarComponent {
   color: string
-  direction: string
+  direction: "left" | "right"
   height: string
   visible: boolean
   width: string

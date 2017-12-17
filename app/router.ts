@@ -3,15 +3,15 @@ import Router from "vue-router"
 
 Vue.use(Router)
 
-import RouterPage1 from "./RouterPage1.vue"
-import RouterPage2 from "./RouterPage2.vue"
+import Configurations from "./components/Configurations.vue"
+import DefaultUsage from "./components/DefaultUsage.vue"
 
-export default new Router({
-  mode: "history",
+const router = new Router({
   routes: [
-    { path: "/", component: RouterPage1 },
-    { path: "/1", component: RouterPage1 },
-    { path: "/2", component: RouterPage2 },
+    { path: "/", name: "root", component: DefaultUsage },
+    { path: "/configurations", name: "configurations", component: Configurations },
     { path: "*", redirect: "/" },
   ],
 })
+
+export default router

@@ -1,0 +1,77 @@
+pre {
+  background-color: #fff;
+  border-radius: 4px;
+  color: #555;
+  display: block;
+  margin-top: -10px;
+  overflow: auto;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  padding-top: 15px;
+  white-space: pre-wrap;
+}
+
+.earthsong {
+  background-color: #35366a;
+  color: #EBD1B7;
+
+  .pln {
+    color: #ebd1b7
+  }
+  
+  .str {
+    color: #f8bb39
+  }
+  
+  .kwd {
+    color: #95cc5e
+  }
+  
+  .com {
+    color: #7a7267
+  }
+  
+  .typ {
+    color: #db784d
+  }
+  
+  .lit {
+    color: #60a365
+  }
+  
+  .pun {
+    color: #ebd1b7
+  }
+  
+  .opn {
+    color: #ebd1b7
+  }
+  
+  .clo {
+    color: #ebd1b7
+  }
+  
+  .tag {
+    color: #95cc5e
+  }
+  
+  .atn {
+    color: #db784d
+  }
+  
+  .atv {
+    color: #60a365
+  }
+  
+  .dec {
+    color: #f8bb39
+  }
+  
+  .var {
+    color: #f8bb39
+  }
+  
+  .fun {
+    color: #95cc5e
+  }
+}
