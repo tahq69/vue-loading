@@ -11,11 +11,11 @@
     "types/*"
   ],
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build-app": "cross-env NODE_ENV=production webpack --config webpack.config --progress --hide-modules",
-    "build-lib": "cross-env NODE_ENV=production webpack --config webpack.config.lib --progress --hide-modules",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --config build/webpack.config",
+    "build-app": "cross-env NODE_ENV=production webpack --config build/webpack.config --progress --hide-modules",
+    "build-lib": "cross-env NODE_ENV=production webpack --config build/webpack.config.lib --progress --hide-modules",
     "build": "npm run build-app && npm run build-lib",
-    "release": "node release.js"
+    "release": "node build/release.js"
   },
   "repository": {
     "type": "git",

@@ -1,18 +1,18 @@
 const path = require("path")
 const webpack = require("webpack")
 
-let version = require("./package.json").version
+let version = require("./../package.json").version
 let parts = version.split(".")
 let last = parts.splice(-1, 1)[0]
 version = parts.join(".") + "." + (parseInt(last || 0) + 1)
 
 console.log(`Creating documentation build of v${version}:`)
 
-let resolve = relativePath => path.resolve(__dirname, relativePath)
+let resolve = relativePath => path.resolve(__dirname, "./..", relativePath)
 
 module.exports = {
   entry: {
-    app: "./app/main.ts",
+    app: resolve("app/main.ts"),
   },
   output: {
     path: resolve("./dist"),
@@ -22,8 +22,8 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".js", ".vue", ".json"],
     alias: {
-      "@": resolve("./src"),
-      "#": resolve("./app"),
+      "@": resolve("src"),
+      "#": resolve("app"),
     },
   },
   module: {
@@ -34,17 +34,15 @@ module.exports = {
         loader: "tslint-loader",
         exclude: /node_modules|vue\/src|vendor\/*/,
         options: {
-          configFile: "tslint.json",
+          configFile: resolve("tslint.json"),
         },
       },
       {
         test: /\.ts$/,
         exclude: /node_modules|vue\/src|vendor\/*/,
         loader: "ts-loader",
-        include: [resolve("./src"), resolve("./app")],
-        options: {
-          appendTsSuffixTo: [/\.vue$/],
-        },
+        include: [resolve("src"), resolve("app")],
+        options: { appendTsSuffixTo: [/\.vue$/] },
       },
       {
         test: /\.vue$/,

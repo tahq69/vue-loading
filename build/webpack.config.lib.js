@@ -1,21 +1,21 @@
 const path = require("path")
 const webpack = require("webpack")
 
-let version = require("./package.json").version
+let version = require("./../package.json").version
 let parts = version.split(".")
 let last = parts.splice(-1, 1)[0]
 version = parts.join(".") + "." + (parseInt(last || 0) + 1)
 
 console.log(`Creating library build of v${version}:`)
 
-let resolve = relativePath => path.resolve(__dirname, relativePath)
+let resolve = relativePath => path.resolve(__dirname, "./..", relativePath)
 
 module.exports = {
   entry: {
-    "crip-vue-loading": "./src/main.ts",
+    "crip-vue-loading": resolve("src/main.ts"),
   },
   output: {
-    path: resolve("./lib"),
+    path: resolve("lib"),
     filename: "[name].js",
     library: {
       root: "CripVueLoading",
@@ -26,9 +26,9 @@ module.exports = {
     umdNamedDefine: true,
   },
   resolve: {
-    extensions: [".ts", ".js", ".vue", ".json"],
+    extensions: [".ts", ".js", ".json"],
     alias: {
-      "@": resolve("./src"),
+      "@": resolve("src"),
     },
   },
   module: {

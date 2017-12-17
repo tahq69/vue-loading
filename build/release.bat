@@ -1,3 +1,6 @@
+:: Move to root folder
+cd ..
+
 :: Build assets
 call npm run build
 
