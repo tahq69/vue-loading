@@ -1,7 +1,7 @@
 {
   "name": "crip-vue-loading",
   "description": "Loading bar for Vue.js apps using axios and vue-router",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "author": "Igors Krasjukovs <tahq69@gmail.com>",
   "private": false,
   "main": "lib/crip-vue-loading.js",
