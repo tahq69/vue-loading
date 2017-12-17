@@ -4,12 +4,11 @@
   "version": "1.2.3",
   "author": "Igors Krasjukovs <tahq69@gmail.com>",
   "private": false,
-  "main": "dist/build.js",
+  "main": "lib/crip-vue-loading.js",
   "typings": "types/index.d.ts",
   "files": [
-    "dist/build.js",
-    "dist/build.js.map",
-    "types/*.d.ts"
+    "lib/*",
+    "types/*"
   ],
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
