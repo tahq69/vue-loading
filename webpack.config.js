@@ -6,32 +6,24 @@ let parts = version.split(".")
 let last = parts.splice(-1, 1)[0]
 version = parts.join(".") + "." + (parseInt(last || 0) + 1)
 
-console.log(`Creating build of v${version}:`)
+console.log(`Creating documentation build of v${version}:`)
 
 let resolve = relativePath => path.resolve(__dirname, relativePath)
 
 module.exports = {
   entry: {
-    build: "./src/main.ts",
-    example: "./src/example/main.ts",
+    app: "./app/main.ts",
   },
   output: {
     path: resolve("./dist"),
     publicPath: "/dist/",
     filename: "[name].js",
-    library: {
-      root: "CripVueLoading",
-      amd: "crip-vue-loading",
-      commonjs: "crip-vue-loading",
-    },
-    libraryTarget: "umd",
-    umdNamedDefine: true,
   },
   resolve: {
     extensions: [".ts", ".js", ".vue", ".json"],
     alias: {
       "@": resolve("./src"),
-      vue$: "vue/dist/vue.esm.js",
+      "#": resolve("./app"),
     },
   },
   module: {
@@ -49,7 +41,7 @@ module.exports = {
         test: /\.ts$/,
         exclude: /node_modules|vue\/src|vendor\/*/,
         loader: "ts-loader",
-        include: resolve("./src"),
+        include: [resolve("./src"), resolve("./app")],
         options: {
           appendTsSuffixTo: [/\.vue$/],
         },
@@ -85,9 +77,6 @@ module.exports = {
   },
   devtool: "#eval-source-map",
   plugins: [
-    new webpack.ProvidePlugin({
-      vue: "vue",
-    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       progress: true,

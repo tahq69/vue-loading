@@ -1,10 +1,10 @@
 import axios from "axios"
 import Vue from "vue"
 
-import CripLoading, { CripLoadingOptions } from "./../main"
+import CripLoading from "@/main"
 import App from "./Example.vue"
 
-Vue.use<CripLoadingOptions>(CripLoading, {
+Vue.use(CripLoading, {
   axios,
   color: "rgba(88, 91, 169, 1)",
   height: "3px",
