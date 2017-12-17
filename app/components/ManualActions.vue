@@ -24,11 +24,6 @@ export default Vue.extend({
       this.$loading.fail()
     },
   },
-
-  mounted() {
-    // tslint:disable-next-line:whitespace
-    ;(window as any).PR.prettyPrint()
-  },
 })
 </script>
 

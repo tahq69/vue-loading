@@ -1,5 +1,14 @@
 <script lang="ts">
-export default {}
+import Vue from "vue"
+
+export default Vue.extend({
+  name: "CodeSample",
+
+  mounted() {
+    // tslint:disable-next-line:whitespace
+    ;(window as any).PR.prettyPrint()
+  },
+})
 </script>
 
 <template>
