@@ -1,13 +1,15 @@
 import axios from "axios"
 import Vue from "vue"
 
+import "./assets/styles.scss"
+
 import CripLoading from "@/main"
-import App from "./Example.vue"
+import App from "./components/Docs.vue"
 
 Vue.use(CripLoading, {
   axios,
-  color: "rgba(88, 91, 169, 1)",
-  height: "3px",
+  color: "#fff",
+  height: "5px",
   verbose: true,
 })
 

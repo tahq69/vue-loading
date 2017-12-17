@@ -1,5 +1,6 @@
 const path = require("path")
 const webpack = require("webpack")
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 let version = require("./../package.json").version
 let parts = version.split(".")
@@ -56,13 +57,26 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/,
-        use: [{ loader: "style-loader" }, { loader: "css-loader" }, { loader: "sass-loader" }],
-      },
-      {
         test: /\.ts$/,
         loader: "string-replace-loader",
         query: { search: "__VERSION__", replace: version },
+      },
+      {
+        test: /\.scss$|\.css$/,
+        exclude: /node_modules/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: ["css-loader", "sass-loader"],
+        }),
+      },
+      {
+        test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+        loader: "url-loader",
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        loader: "file-loader",
+        options: { name: "[name].[ext]?[hash]" },
       },
     ],
   },
@@ -75,6 +89,7 @@ module.exports = {
   },
   devtool: "#eval-source-map",
   plugins: [
+    new ExtractTextPlugin('styles.css'),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       progress: true,

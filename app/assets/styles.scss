@@ -1,0 +1,22 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Custom styles
+@import "navbar";
+@import "navbar-toggle";
+
+.crip-section {
+  margin: 20px 0;
+}
+
+@media (min-width: $screen-sm-min) {
+  .crip-section {
+    margin: 60px 0;
+  }
+}

@@ -5,19 +5,54 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>vue-crip-loading</title>
+  <title>crip-vue-loading</title>
 
-  <!-- Bootstrap -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom Bootstrap -->
+  <link href="dist/styles.css" rel="stylesheet">
 </head>
 
 <body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <h1 class="navbar-brand">
+          Crip vue loading
+        </h1>
+      </div>
+      <!-- /.navbar-header -->
+
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="http://hrefs.crip.lv/home" target="_blank">Blog</a>
+          </li>
+          <!--<li>
+            <a href="http://cm.crip.lv" target="_blank">CM</a>
+          </li>-->
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="https://github.com/tahq69" target="_blank">Author</a>
+          </li>
+          <li>
+            <a href="https://github.com/tahq69/vue-loading" target="_blank">Repository</a>
+          </li>
+          <li>
+            <a href="https://github.com/tahq69/vue-loading/issues" target="_blank">Issues</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /#navbar /.navbar-collapse -->
+    </div>
+  </nav>
+
   <div id="app">loading...</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.js"></script>
   <script src="https://unpkg.com/crip-vue-notice@1.0.7/dist/build.js"></script>
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
   <script src="dist/app.js"></script>
 </body>
 

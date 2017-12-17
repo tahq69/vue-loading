@@ -1,0 +1,45 @@
+@import "variables";
+
+.navbar.navbar-inverse {
+  .navbar-toggle {
+    border-color: $body-bg;
+    margin: 29px;
+
+    &:hover, :focus {
+      background-color: $grad-1-color;
+    }
+  }
+
+  .navbar-brand {
+    color: $body-bg;
+    text-transform: capitalize;
+    font-size: 24px;
+    font-weight: 700;
+    padding-left: 11px;
+    height: 86px;
+
+    img {
+      width: 56px;
+      height: 64px;
+    }
+  }
+
+  h1.navbar-brand {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 29px 15px;
+  }
+
+  .nav > li > a {
+    color: $body-bg;
+
+    @media (min-width: $screen-sm-min) {
+      font-size: 18px;
+      padding: 29px;
+    }
+
+    &:hover {
+      color: $hover-color;
+    }
+  }
+}
