@@ -11,7 +11,6 @@ let installed = false
 let privateVue: any
 
 export default function install(vue: typeof Vue, options?: CripLoadingOptions) {
-  console.log({ vue, options })
   if (installed && privateVue === vue) return
   if (!options) throw new Error("Options with axios instance is required")
 

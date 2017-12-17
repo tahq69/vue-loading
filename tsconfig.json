@@ -1,26 +1,21 @@
 {
-  "include": [
-    "src/**/*",
-    "examples/**/*"
-  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["src/*"],
+      "#/*": ["app/*"]
     },
-    "lib": [
-      "dom",
-      "es5",
-      "es2015"
-    ],
+    "sourceMap": true,
+    "lib": ["dom", "es5", "es2015"],
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "sourceMap": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "types": ["node", "vue"],
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   }
 }

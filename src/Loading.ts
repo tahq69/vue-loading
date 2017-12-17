@@ -21,7 +21,7 @@ type Response<T> = T | Promise<T>
 type LoadingBarVue = LoadingBarComponent & Vue
 
 let loadingBar: LoadingBarVue | null = null
-let private_vue: typeof Vue | null = null
+let privateVue: typeof Vue | null = null
 
 export default class Loading {
   public version = "__VERSION__"
@@ -35,7 +35,7 @@ export default class Loading {
   private requests: string[] = []
 
   constructor(vue: typeof Vue, options: Options) {
-    private_vue = vue
+    privateVue = vue
     this.options = options
     this.intercept(this.options.axios)
     this.createInstance(vue)
@@ -164,9 +164,9 @@ export default class Loading {
   }
 
   private notice(notice?: INoticeOptions) {
-    if (!private_vue || !notice) return
-    if (!private_vue.notice) return
+    if (!privateVue || !notice) return
+    if (!privateVue.notice) return
 
-    private_vue.notice.error(notice)
+    privateVue.notice.error(notice)
   }
 }
