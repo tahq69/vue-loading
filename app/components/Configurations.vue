@@ -54,7 +54,7 @@ export default Vue.extend({
     <div class="row">
       <div class="col-xs-12">
         <p>Some configurations are available only in component registration, but
-        any design specific settigs may be added in runtime and changed any
+        any design specific settings may be added in runtime and changed any
         time. More details in sample below.</p>
 
         <button class="btn btn-default" @click="setDefaults">Set defaults</button>
@@ -76,7 +76,7 @@ export default Vue.extend({
         // Default color of loader
         color: "#204d74",
 
-        // Directionof progress: "right" | "left"
+        // Direction of progress: "right" | "left"
         direction: "right",
 
         // Loader color when request fails
