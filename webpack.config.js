@@ -19,6 +19,13 @@ module.exports = {
     path: resolve("./dist"),
     publicPath: "/dist/",
     filename: "[name].js",
+    library: {
+      root: "CripVueLoading",
+      amd: "crip-vue-loading",
+      commonjs: "crip-vue-loading",
+    },
+    libraryTarget: "umd",
+    umdNamedDefine: true,
   },
   resolve: {
     extensions: [".ts", ".js", ".vue", ".json"],

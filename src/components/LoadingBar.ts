@@ -14,9 +14,9 @@ export default function(vue: typeof Vue) {
             [`crip-loading--to-${this.direction}`]: true,
           },
           style: {
-            width: this.progress,
             background: this.color,
             height: this.height,
+            width: this.progress,
           },
         })
       }
