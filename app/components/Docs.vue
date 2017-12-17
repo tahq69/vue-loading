@@ -25,6 +25,7 @@ export default Vue.extend({
               <li class="list-group-item"><router-link :to="{name: 'root'}">Default usage</router-link></li>
               <li class="list-group-item"><router-link :to="{name: 'configurations'}">Configurations</router-link></li>
               <li class="list-group-item"><router-link :to="{name: 'manual'}">Manual actions</router-link></li>
+              <li class="list-group-item"><router-link :to="{name: 'notice'}">Notifications</router-link></li>
             </ul>
           </div>
         </div>
