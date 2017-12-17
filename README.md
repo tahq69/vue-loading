@@ -1,7 +1,7 @@
 # crip-vue-loading
 
 > A Vue.js project to wrap axios and display global loading bar of http requests.
-Take a look to [demo page](http://rawgit.com/tahq69/vue-loading/master/index.html)
+For more details read [documentation with examples](http://rawgit.com/tahq69/vue-loading/master/index.html)
 
 ## Usage
 
@@ -56,10 +56,6 @@ Vue.use(CripLoading, {axios})
 
 ## TODO:
 
-- Complete documentation:
-  - For notice usage;
-  - For verbose option in component;
-  - For other parameters in more friendly demo page;
 - Add algorithm with exponential progression instead of current linear;
 
 ## Build Setup
