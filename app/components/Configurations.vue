@@ -21,8 +21,8 @@ export default Vue.extend({
 
     setDefaults() {
       this.$loading.configure({
-        direction: "right",
         color: "#ffffff",
+        direction: "right",
         failColor: "#ac2925",
         height: "5px",
       })
@@ -32,8 +32,8 @@ export default Vue.extend({
 
     setCustom() {
       this.$loading.configure({
-        direction: "left",
         color: "soft",
+        direction: "left",
         failColor: "#0d8ff3",
         height: "2px",
       })
@@ -48,13 +48,22 @@ export default Vue.extend({
   <example-section title="Configurations">
     <div class="row">
       <div class="col-xs-12">
-        <p>Some configurations are available only in component registration, but
-        any design specific settings may be added in runtime and changed any
-        time. More details in sample below.</p>
+        <p>Some configurations are available only in component registration, but any
+          design specific settings may be added in runtime and changed any time.
+          More details in sample below.</p>
 
-        <button class="btn btn-default" @click="setDefaults">Set defaults</button>
-        <button class="btn btn-default" @click="setCustom">Set custom</button>
-        <button class="btn btn-primary" @click="request">Create request</button>
+        <button class="btn btn-default"
+                @click="setDefaults">
+          Set defaults
+        </button>
+        <button class="btn btn-default"
+                @click="setCustom">
+          Set custom
+        </button>
+        <button class="btn btn-primary"
+                @click="request">
+          Create request
+        </button>
       </div>
     </div>
 

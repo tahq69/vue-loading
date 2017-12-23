@@ -19,13 +19,24 @@ export default Vue.extend({
       </div>
       <div class="col-sm-4">
         <div class="panel panel-primary">
-          <div class="panel-heading" id="default-usage">Documentation</div>
+          <div class="panel-heading"
+               id="default-usage">
+            Documentation
+          </div>
           <div class="panel-body sidebar">
             <ul class="list-group">
-              <li class="list-group-item"><router-link :to="{name: 'root'}">Default usage</router-link></li>
-              <li class="list-group-item"><router-link :to="{name: 'configurations'}">Configurations</router-link></li>
-              <li class="list-group-item"><router-link :to="{name: 'manual'}">Manual actions</router-link></li>
-              <li class="list-group-item"><router-link :to="{name: 'notice'}">Notifications</router-link></li>
+              <li class="list-group-item">
+                <router-link :to="{name: 'root'}">Default usage</router-link>
+              </li>
+              <li class="list-group-item">
+                <router-link :to="{name: 'configurations'}">Configurations</router-link>
+              </li>
+              <li class="list-group-item">
+                <router-link :to="{name: 'manual'}">Manual actions</router-link>
+              </li>
+              <li class="list-group-item">
+                <router-link :to="{name: 'notice'}">Notifications</router-link>
+              </li>
             </ul>
           </div>
         </div>

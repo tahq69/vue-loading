@@ -28,11 +28,16 @@ export default Vue.extend({
   <example-section title="notifications">
     <div class="row">
       <div class="col-xs-12">
-        <p>This plugin is compatible with
-        <a href="https://github.com/tahq69/vue-notice">crip-vue-notice</a> and
-        it is possible call notices directly from loader fail method.</p>
+        <p>
+          <span>This plugin is compatible with</span>
+          <a href="https://github.com/tahq69/vue-notice">crip-vue-notice</a>
+          <span> it is possible call notices directly from loader fail method.</span>
+        </p>
 
-        <button class="btn btn-danger" @click="failRequest">Fail request with notification</button>
+        <button class="btn btn-danger"
+                @click="failRequest">
+          Fail request with notification
+        </button>
       </div>
     </div>
 

@@ -26,15 +26,14 @@ export default Vue.extend({
   <example-section title="Default usage">
     <div class="row">
       <div class="col-xs-12">
-        <p>To start using component you need simply register it. Loader will
-        inject in to axios interceptors and will show up while response is not
-        received. Press "Create request" button to call fakeresponse with axios.
+        <p>
+          To start using component you need simply register it. Loader will inject in to axios
+          interceptors and will show up while response is not received. Press "Create
+          request" button to call fakeresponse with axios.
         </p>
 
-        <button
-          class="btn btn-primary"
-          @click="request"
-        >
+        <button class="btn btn-primary"
+                @click="request">
           Create request
         </button>
       </div>
