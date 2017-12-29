@@ -8,8 +8,10 @@ export interface Options {
 }
 
 export default interface Loading {
-  configure(options: Options)
+  configure(options: Options): void
   start(id?: string): string
   complete(id?: string): void
   fail(options?: { id?: string; notice?: INoticeOptions }): void
+
+  canResetProgress(): void
 }

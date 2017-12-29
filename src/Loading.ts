@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Router from "vue-router"
 
-import LoadingBar from "./components/LoadingBar"
+import LoadingBar from "./components/LoadingBar.vue"
 import { log, progress, uuidv4 } from "./help"
 
 import {
@@ -156,11 +156,16 @@ export default class Loading {
   }
 
   private createInstance(vue: typeof Vue) {
-    const instance = LoadingBar(vue).$mount()
-    document.body.appendChild(instance.$el)
-    console.log(this.options)
-    instance.init(this.options)
-    loadingBar = instance
+    const instance = new vue({ render: h => h(LoadingBar) })
+    const component = instance.$mount()
+
+    document.body.appendChild(component.$el)
+    log("debug", this.options)
+
+    const ref: LoadingBarVue = instance.$children[0] as any
+
+    ref.init(this.options)
+    loadingBar = ref
   }
 
   private notice(notice?: INoticeOptions) {

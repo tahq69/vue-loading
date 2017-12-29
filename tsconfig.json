@@ -1,9 +1,11 @@
 {
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "#/*": ["app/*"]
+      "#/*": ["app/*"],
+      "$/*": ["types/*"]
     },
     "sourceMap": true,
     "lib": ["dom", "es5", "es2015"],
@@ -12,10 +14,6 @@
     "moduleResolution": "node",
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "types": ["node", "vue"],
-    "typeRoots": [
-      "./node_modules/@types"
-    ]
+    "experimentalDecorators": true
   }
 }

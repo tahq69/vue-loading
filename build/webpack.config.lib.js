@@ -16,14 +16,10 @@ module.exports = {
   },
   output: {
     path: resolve("lib"),
-    filename: "[name].js",
-    library: {
-      root: "CripVueLoading",
-      amd: "crip-vue-loading",
-      commonjs: "crip-vue-loading",
-    },
+    filename: "crip-vue-loading.js",
     libraryTarget: "umd",
-    umdNamedDefine: true,
+    libraryExport: "default",
+    library: "CripVueLoading",
   },
   resolve: {
     extensions: [".ts", ".js", ".json"],
@@ -47,6 +43,18 @@ module.exports = {
         exclude: /node_modules|vue\/src|vendor\/*/,
         loader: "ts-loader",
         include: resolve("./src"),
+        options: { appendTsSuffixTo: [/\.vue$/] },
+      },
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
+        options: {
+          loaders: {
+            scss: "vue-style-loader!css-loader!sass-loader",
+            sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax",
+            esModule: true,
+          },
+        },
       },
       {
         test: /\.scss$/,
@@ -75,7 +83,7 @@ module.exports = {
     new webpack.BannerPlugin({
       banner: `/*!
 * Crip Vue Loading v${version}
-* Forged by Igors Krasjukovs <tahq69@gmail.com>
+* (c) 2017-${new Date().getFullYear} Igors Krasjukovs <tahq69@gmail.com>
 * Released under the MIT License.
 */`,
       raw: true,
@@ -86,7 +94,20 @@ module.exports = {
 
 if (process.env.NODE_ENV === "production") {
   module.exports.devtool = "#source-map"
-  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.externals = {
+    vue: {
+      commonjs: "vue",
+      commonjs2: "vue",
+      amd: "vue",
+      root: "Vue",
+    },
+    "vue-router": {
+      commonjs: "vue-router",
+      commonjs2: "vue-router",
+      amd: "vue-router",
+      root: "VueRouter",
+    },
+  }
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,

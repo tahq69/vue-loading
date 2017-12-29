@@ -1,7 +1,5 @@
 import Vue from "vue"
-import Router from "vue-router"
 
-import "./assets/styles.scss"
 import { CripLoadingOptions, INoticeOptions, Options } from "./contracts"
 import { log, setVerbose } from "./help"
 import Loading from "./Loading"
