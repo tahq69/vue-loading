@@ -2,7 +2,7 @@ import Vue from "vue"
 import Router from "vue-router"
 import { AxiosInstance } from "axios"
 
-export interface PluginOptions {
+export interface ILoadingOptions {
   axios: AxiosInstance
 
   applyOnRouter?: boolean
@@ -13,4 +13,4 @@ export interface PluginOptions {
   verbose?: boolean
 }
 
-export const Plugin: (vue: typeof Vue, options?: PluginOptions) => void
+export const Plugin: (vue: typeof Vue, options?: ILoadingOptions) => void

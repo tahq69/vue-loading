@@ -1,30 +1,25 @@
 import Vue from "vue"
-import Router from "vue-router"
 
 import LoadingBar from "./components/LoadingBar.vue"
 import { log, progress, uuidv4 } from "./help"
 
 import {
   AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  ConfigureOptions,
-  CripLoadingOptions,
-  FailOptions,
-  INotice,
+  IConfigureLoadingOptions,
+  ILoadingFailOptions,
   INoticeOptions,
   LoadingBarComponent,
   Options,
-} from "./contracts"
+} from "./types"
 
 type Response<T> = T | Promise<T>
-type LoadingBarVue = LoadingBarComponent & Vue
+type LoadingBarInstance = LoadingBarComponent & Vue
 
-let loadingBar: LoadingBarVue | null = null
+let loadingBar: LoadingBarInstance | null = null
 let privateVue: typeof Vue | null = null
 
 export default class Loading {
-  public version = "__VERSION__"
+  public static version = "__VERSION__"
 
   private completed = 0
   private total = 0
@@ -73,7 +68,7 @@ export default class Loading {
     throw Error(`Crip loading element ${id} not found to complete.`)
   }
 
-  public fail(options?: FailOptions, axios?: boolean): void {
+  public fail(options?: ILoadingFailOptions, axios?: boolean): void {
     if (this.total !== 0) {
       if (!axios) this.complete(options ? options.id : undefined)
       if (loadingBar) loadingBar.color = this.options.failColor
@@ -103,7 +98,7 @@ export default class Loading {
     return result
   }
 
-  public configure(options: ConfigureOptions) {
+  public configure(options: IConfigureLoadingOptions) {
     if (loadingBar) loadingBar.configure(options)
     if (options.failColor) this.options.failColor = options.failColor
   }
@@ -162,7 +157,7 @@ export default class Loading {
     document.body.appendChild(component.$el)
     log("debug", this.options)
 
-    const ref: LoadingBarVue = instance.$children[0] as any
+    const ref: LoadingBarInstance = instance.$children[0] as any
 
     ref.init(this.options)
     loadingBar = ref

@@ -5,8 +5,9 @@ export default Vue.extend({
   name: "CodeSample",
 
   mounted() {
+    const w = window as any
     // tslint:disable-next-line:whitespace
-    ;(window as any).PR.prettyPrint()
+    w.PR.prettyPrint()
   },
 })
 </script>

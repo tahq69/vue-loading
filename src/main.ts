@@ -1,14 +1,14 @@
 import Vue from "vue"
 
-import { CripLoadingOptions, INoticeOptions, Options } from "./contracts"
 import { log, setVerbose } from "./help"
 import Loading from "./Loading"
 import mixin from "./mixin"
+import { ILoadingOptions, INoticeOptions, Options } from "./types"
 
 let installed = false
 let privateVue: any
 
-export default function install(vue: typeof Vue, options?: CripLoadingOptions) {
+export default function install(vue: typeof Vue, options?: ILoadingOptions) {
   if (installed && privateVue === vue) return
   if (!options) throw new Error("Options with axios instance is required")
 
@@ -27,9 +27,7 @@ export default function install(vue: typeof Vue, options?: CripLoadingOptions) {
 
   const settings = Object.assign({}, defaults, options)
 
-  if (settings.verbose) {
-    setVerbose()
-  }
+  if (settings.verbose) setVerbose()
 
   log("debug", "install", { options, settings })
 
@@ -38,7 +36,7 @@ export default function install(vue: typeof Vue, options?: CripLoadingOptions) {
   vue.loading = loading
   vue.prototype.$loading = loading
 
-  mixin({ loading, options: settings, vue })
+  mixin(settings)
 }
 
-export { CripLoadingOptions } from "./contracts"
+export { ILoadingOptions } from "./types"

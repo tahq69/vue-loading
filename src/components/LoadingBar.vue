@@ -1,7 +1,7 @@
 <script lang="ts">
 import Vue from "vue"
 
-import { ConfigureOptions, Options } from "@/contracts"
+import { IConfigureLoadingOptions, Options } from "@/types"
 
 interface IData {
   color: string
@@ -49,7 +49,7 @@ export default Vue.extend({
       this.visible = true
     },
 
-    configure(options: ConfigureOptions) {
+    configure(options: IConfigureLoadingOptions) {
       if (options.color) this.color = options.color
       if (options.direction) this.direction = options.direction
       if (options.height) this.height = options.height
