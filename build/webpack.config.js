@@ -25,6 +25,8 @@ module.exports = {
     alias: {
       "@": resolve("src"),
       "#": resolve("app"),
+      "$": resolve("types"),
+      "&": resolve("test"),
     },
   },
   module: {
@@ -101,7 +103,7 @@ module.exports = {
     new webpack.BannerPlugin({
       banner: `/*!
 * Crip Vue Loading v${version}
-* Forged by Igors Krasjukovs <tahq69@gmail.com>
+* (c) 2017-${new Date().getFullYear() + 1} Igors Krasjukovs <tahq69@gmail.com>
 * Released under the MIT License.
 */`,
       raw: true,

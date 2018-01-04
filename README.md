@@ -18,6 +18,11 @@ import axios from "axios"
 
 // Install component in to Vue instance and inject in to axios.
 Vue.use(CripLoading, {axios})
+
+// If you use "vue-router" and do not disable `applyOnRouter` option
+// make sure you install plugin before router:
+// https://github.com/vuejs/vue-router/issues/315
+
 ```
 
 ### Display loading bar

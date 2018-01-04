@@ -22,9 +22,12 @@ module.exports = {
     library: "CripVueLoading",
   },
   resolve: {
-    extensions: [".ts", ".js", ".json"],
+    extensions: [".ts", ".js", ".vue", ".json"],
     alias: {
       "@": resolve("src"),
+      "#": resolve("app"),
+      "$": resolve("types"),
+      "&": resolve("test"),
     },
   },
   module: {
@@ -83,7 +86,7 @@ module.exports = {
     new webpack.BannerPlugin({
       banner: `/*!
 * Crip Vue Loading v${version}
-* (c) 2017-${new Date().getFullYear} Igors Krasjukovs <tahq69@gmail.com>
+* (c) 2017-${new Date().getFullYear() + 1} Igors Krasjukovs <tahq69@gmail.com>
 * Released under the MIT License.
 */`,
       raw: true,
