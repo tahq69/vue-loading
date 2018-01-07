@@ -1,6 +1,9 @@
-export type LogType = "log" | "debug" | "warn" | "error"
+export type LogType = "debug" | "log" | "warn" | "error"
+
+const levels = ["debug", "log", "warn", "error"]
 
 let verbose = false
+let level = "debug"
 
 export function uuidv4() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
@@ -17,12 +20,13 @@ export function progress(total: number, completed: number) {
   return left + right
 }
 
-export function setVerbose() {
+export function setVerbose(debugLevel = "debug") {
   verbose = true
+  level = debugLevel
 }
 
 export function log(type: LogType, ...args: any[]) {
-  if (verbose) {
+  if (verbose && levels.indexOf(type) >= levels.indexOf(level)) {
     console[type].apply(console, ["[crip-vue-loading]", ...args])
   }
 }

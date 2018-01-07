@@ -11,6 +11,7 @@ export interface ILoadingOptions {
   failColor?: string
   height?: string
   verbose?: boolean
+  logLevel?: "debug" | "log" | "warn" | "error"
 }
 
 export const Plugin: (vue: typeof Vue, options?: ILoadingOptions) => void

@@ -23,6 +23,7 @@ export interface Options {
   failColor: string
   height: string
   verbose: boolean
+  logLevel: "debug" | "log" | "warn" | "error"
 }
 
 export interface LoadingBarComponent {

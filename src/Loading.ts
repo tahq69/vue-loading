@@ -45,6 +45,7 @@ export default class Loading {
   }
 
   public start(id?: string): string {
+    log("debug", "start()", { id })
     const uuid = id || uuidv4()
     this.requests.push(uuid)
     this.pushRequest(uuid)
@@ -53,19 +54,17 @@ export default class Loading {
   }
 
   public complete(id?: string): void {
-    if (!id) {
+    log("debug", "complete()", { id })
+    if (!id || this.requests.indexOf(id) === -1) {
+      log("warn", `Crip loading element '${id}' not found to complete.`)
       this.requests.shift()
-      this.pushResponse(-1)
+      this.pushResponse(id || -1)
       return
     }
 
-    if (this.requests.indexOf(id) > -1) {
-      const index = this.requests.indexOf(id)
-      this.requests.splice(index, 1)
-      this.pushResponse(index)
-    }
-
-    throw Error(`Crip loading element ${id} not found to complete.`)
+    const index = this.requests.indexOf(id)
+    const [removed] = this.requests.splice(index, 1)
+    this.pushResponse(removed)
   }
 
   public fail(options?: ILoadingFailOptions, axios?: boolean): void {
@@ -118,6 +117,8 @@ export default class Loading {
   }
 
   private pushRequest<T>(config: T, time = Date.now()): T {
+    log("log", "pushRequest()", { config, time, url: (config as any).url })
+
     this.lastChange = time
     this.total++
 
@@ -127,6 +128,8 @@ export default class Loading {
   }
 
   private pushResponse<T>(data: T, error = false, time = Date.now()): Response<T> {
+    log("log", "pushResponse()", { data, error, time })
+
     this.lastChange = time
     this.completed++
 

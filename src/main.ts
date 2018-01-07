@@ -22,12 +22,13 @@ export default function install(vue: typeof Vue, options?: ILoadingOptions) {
     direction: "right",
     failColor: "#ac2925",
     height: "2px",
-    verbose: false,
+    logLevel: "error",
+    verbose: true,
   }
 
   const settings = Object.assign({}, defaults, options)
 
-  if (settings.verbose) setVerbose()
+  if (settings.verbose) setVerbose(settings.logLevel)
 
   log("debug", "install", { options, settings })
 

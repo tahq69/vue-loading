@@ -1,6 +1,6 @@
 import Vue from "vue"
 
-import { uuidv4 } from "./help"
+import { log, uuidv4 } from "./help"
 import { Next, Options, Route } from "./types"
 
 export default function init(options: Options) {
@@ -11,12 +11,16 @@ export default function init(options: Options) {
       if (!this.$options.router) return
 
       this.$options.router.beforeEach((to: Route, from: Route, next: Next) => {
-        this.$loading.start(uuidv4())
+        const id = to.fullPath
+        log("debug", "router.beforeEach()", { id, to, from })
+        this.$loading.start(id)
         next()
       })
 
       this.$options.router.afterEach((to: Route, from: Route) => {
-        this.$loading.complete()
+        const id = to.fullPath
+        log("debug", "router.afterEach()", { id, to, from })
+        this.$loading.complete(id)
       })
     },
   })
