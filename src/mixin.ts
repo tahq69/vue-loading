@@ -10,9 +10,9 @@ export default function init(options: Options) {
     beforeCreate() {
       if (!this.$options.router) return
 
-      this.$options.router.beforeEach((to: Route, from: Route, next: Next) => {
+      this.$options.router.beforeResolve((to: Route, from: Route, next: Next) => {
         const id = to.fullPath
-        log("debug", "router.beforeEach()", { id, to, from })
+        log("debug", "router.beforeResolve()", { id, to, from })
         this.$loading.start(id)
         next()
       })
