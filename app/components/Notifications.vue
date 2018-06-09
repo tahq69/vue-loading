@@ -26,20 +26,16 @@ export default Vue.extend({
 
 <template>
   <example-section title="notifications">
-    <div class="row">
-      <div class="col-xs-12">
-        <p>
-          <span>This plugin is compatible with</span>
-          <a href="https://github.com/tahq69/vue-notice">crip-vue-notice</a>
-          <span> it is possible call notices directly from loader fail method.</span>
-        </p>
+    <p>
+      <span>This plugin is compatible with</span>
+      <a href="https://github.com/tahq69/vue-notice">crip-vue-notice</a>
+      <span> it is possible call notices directly from loader fail method.</span>
+    </p>
 
-        <button class="btn btn-danger"
-                @click="failRequest">
-          Fail request with notification
-        </button>
-      </div>
-    </div>
+    <button class="btn btn-danger"
+            @click="failRequest">
+      Fail request with notification
+    </button>
 
     <code-sample>
       import axios from "axios"

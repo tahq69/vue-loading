@@ -13,7 +13,7 @@ export default Vue.extend({
   methods: {
     async request() {
       try {
-        await axios.get(`http://www.fakeresponse.com/api/?sleep=1`)
+        await axios.get("https://httpstat.us/200?sleep=1000")
       } catch (error) {
         console.error(error)
       }
@@ -24,20 +24,16 @@ export default Vue.extend({
 
 <template>
   <example-section title="Default usage">
-    <div class="row">
-      <div class="col-xs-12">
-        <p>
-          To start using component you need simply register it. Loader will inject in to axios
-          interceptors and will show up while response is not received. Press "Create
-          request" button to call fakeresponse with axios.
-        </p>
+    <p>
+      To start using component you need simply register it. Loader will inject in to axios interceptors and
+      will show up while response is not received. Press "Create request" button to call 'httpstat.us'
+      with axios.
+    </p>
 
-        <button class="btn btn-primary"
-                @click="request">
-          Create request
-        </button>
-      </div>
-    </div>
+    <button class="btn btn-primary"
+            @click="request">
+      Create request
+    </button>
 
     <code-sample>
       import axios from "axios"
@@ -49,7 +45,7 @@ export default Vue.extend({
         methods: {
           async request() {
             try {
-              await axios.get("http://www.fakeresponse.com/api/?sleep=1")
+              await axios.get("https://httpstat.us/200?sleep=1000")
             } catch (error) {
               console.error(error)
             }

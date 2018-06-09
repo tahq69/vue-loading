@@ -2,6 +2,7 @@
 import Vue from "vue"
 
 import { IConfigureLoadingOptions, Options } from "@/types"
+import { log } from "@/help"
 
 interface IData {
   color: string
@@ -21,15 +22,13 @@ export default Vue.extend({
     },
   },
 
-  data(): IData {
-    return {
-      color: "",
-      direction: "right",
-      height: "",
-      visible: false,
-      width: "",
-    }
-  },
+  data: () => ({
+    color: "",
+    direction: "right" as "right" | "left",
+    height: "",
+    visible: false,
+    width: "",
+  }),
 
   methods: {
     /**
@@ -43,6 +42,7 @@ export default Vue.extend({
     },
 
     init(data: Options) {
+      log("debug", "init", data)
       this.color = data.color
       this.direction = data.direction
       this.height = data.height
@@ -50,6 +50,7 @@ export default Vue.extend({
     },
 
     configure(options: IConfigureLoadingOptions) {
+      log("debug", "configure", options)
       if (options.color) this.color = options.color
       if (options.direction) this.direction = options.direction
       if (options.height) this.height = options.height

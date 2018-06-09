@@ -29,27 +29,23 @@ export default Vue.extend({
 
 <template>
   <example-section title="Configurations">
-    <div class="row">
-      <div class="col-xs-12">
-        <p>
-          In some cases you need manually add/remove/fail request and it is possible. See code
-          samples below for more details.
-        </p>
+    <p>
+      In some cases you need manually add/remove/fail request and it is possible. See code samples below for
+      more details.
+    </p>
 
-        <button class="btn btn-default"
-                @click="addRequest">
-          Add request
-        </button>
-        <button class="btn btn-default"
-                @click="completeRequest">
-          Complete request
-        </button>
-        <button class="btn btn-danger"
-                @click="failRequest">
-          Fail request
-        </button>
-      </div>
-    </div>
+    <button class="btn btn-default"
+            @click="addRequest">
+      Add request
+    </button>
+    <button class="btn btn-default"
+            @click="completeRequest">
+      Complete request
+    </button>
+    <button class="btn btn-danger"
+            @click="failRequest">
+      Fail request
+    </button>
 
     <code-sample>
       import axios from "axios"

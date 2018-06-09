@@ -98,8 +98,9 @@ export default class Loading {
   }
 
   public configure(options: IConfigureLoadingOptions) {
+    log("debug", "Loading->configure", options)
     if (loadingBar) loadingBar.configure(options)
-    if (options.failColor) this.options.failColor = options.failColor
+    this.options = Object.assign({}, this.options, options)
   }
 
   private intercept(axios?: AxiosInstance) {
@@ -158,7 +159,7 @@ export default class Loading {
     const component = instance.$mount()
 
     document.body.appendChild(component.$el)
-    log("debug", this.options)
+    log("debug", "create instance", this.options)
 
     const ref: LoadingBarInstance = instance.$children[0] as any
 

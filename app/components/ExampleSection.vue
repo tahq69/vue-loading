@@ -11,10 +11,12 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div class="panel panel-primary">
-    <div class="panel-heading">{{ title }}</div>
-    <div class="panel-body">
-      <slot></slot>
+  <div class="card border-primary">
+    <div class="card-header bg-primary text-white">{{ title }}</div>
+    <div class="card-body">
+      <slot>
+        <!-- default slot -->
+      </slot>
     </div>
   </div>
 </template>

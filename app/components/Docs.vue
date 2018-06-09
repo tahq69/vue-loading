@@ -12,49 +12,49 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div class="container root">
+  <div class="container mt-3">
     <div class="row">
-      <div class="col-sm-8">
-        <router-view />
-      </div>
-      <div class="col-sm-4">
-        <div class="panel panel-primary">
-          <div class="panel-heading"
-               id="default-usage">
+      <div class="order-md-2 col-md-4">
+        <div class="card border-primary">
+          <div class="card-header bg-primary text-white">
             Documentation
           </div>
-          <div class="panel-body sidebar">
-            <ul class="list-group">
-              <li class="list-group-item">
-                <router-link :to="{name: 'root'}">Default usage</router-link>
-              </li>
-              <li class="list-group-item">
-                <router-link :to="{name: 'configurations'}">Configurations</router-link>
-              </li>
-              <li class="list-group-item">
-                <router-link :to="{name: 'manual'}">Manual actions</router-link>
-              </li>
-              <li class="list-group-item">
-                <router-link :to="{name: 'notice'}">Notifications</router-link>
-              </li>
-            </ul>
-          </div>
+          <ul class="list-group list-group-flush">
+            <router-link tag="li"
+                         :to="{ name: 'root' }"
+                         class="list-group-item"
+                         active-class="active"
+                         exact>
+              <a>Default usage</a>
+            </router-link>
+            <router-link tag="li"
+                         :to="{ name: 'configurations' }"
+                         class="list-group-item"
+                         active-class="active"
+                         exact>
+              <a>Configurations</a>
+            </router-link>
+            <router-link tag="li"
+                         :to="{ name: 'manual' }"
+                         class="list-group-item"
+                         active-class="active"
+                         exact>
+              <a>Manual actions</a>
+            </router-link>
+            <router-link tag="li"
+                         :to="{ name: 'notice' }"
+                         class="list-group-item"
+                         active-class="active"
+                         exact>
+              <a>Notifications</a>
+            </router-link>
+          </ul>
         </div>
+      </div>
+      <div class="order-md-1 col-md-8">
+        <router-view />
       </div>
     </div>
   </div>
 </template>
 
-<style lang="scss">
-.root.container {
-  margin-top: 101px;
-}
-
-.sidebar {
-  padding: 0;
-
-  .list-group {
-    margin: 0;
-  }
-}
-</style>

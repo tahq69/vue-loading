@@ -13,7 +13,7 @@ export default Vue.extend({
   methods: {
     async request() {
       try {
-        await axios.get(`http://www.fakeresponse.com/api/?sleep=1`)
+        await axios.get("https://httpstat.us/200?sleep=1000")
       } catch (error) {
         console.error(error)
       }
@@ -32,7 +32,7 @@ export default Vue.extend({
 
     setCustom() {
       this.$loading.configure({
-        color: "soft",
+        color: "#0d8ff3",
         direction: "left",
         failColor: "#0d8ff3",
         height: "2px",
@@ -46,26 +46,22 @@ export default Vue.extend({
 
 <template>
   <example-section title="Configurations">
-    <div class="row">
-      <div class="col-xs-12">
-        <p>Some configurations are available only in component registration, but any
-          design specific settings may be added in runtime and changed any time.
-          More details in sample below.</p>
 
-        <button class="btn btn-default"
-                @click="setDefaults">
-          Set defaults
-        </button>
-        <button class="btn btn-default"
-                @click="setCustom">
-          Set custom
-        </button>
-        <button class="btn btn-primary"
-                @click="request">
-          Create request
-        </button>
-      </div>
-    </div>
+    <p>Some configurations are available only in component registration, but any design specific settings
+      may be added in runtime and changed any time. More details in sample below.</p>
+
+    <button class="btn btn-default"
+            @click="setDefaults()">
+      Set defaults
+    </button>
+    <button class="btn btn-default"
+            @click="setCustom()">
+      Set custom
+    </button>
+    <button class="btn btn-primary"
+            @click="request()">
+      Create request
+    </button>
 
     <code-sample>
       import axios from "axios"
@@ -97,7 +93,7 @@ export default Vue.extend({
         methods: {
           async request() {
             try {
-              await axios.get("http://www.fakeresponse.com/api/?sleep=1")
+              await axios.get("https://httpstat.us/200?sleep=1000")
             } catch (error) {
               console.error(error)
             }
